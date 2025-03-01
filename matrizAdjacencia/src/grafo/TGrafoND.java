@@ -65,7 +65,10 @@ public class TGrafoND {
             boolean desconexo = true;
 
             for(int j = 0; j < n; j++) {
-                if(adj[i][j] == 1) desconexo = false;
+                if(adj[i][j] == 1) {
+                    desconexo = false;
+                    break;
+                }
             }
 
             if(desconexo) return 1;

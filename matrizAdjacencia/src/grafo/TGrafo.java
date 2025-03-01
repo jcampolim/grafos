@@ -2,35 +2,37 @@ package grafo;
 
 public class TGrafo {
 
-	private	int n;          // quantidade de vértices
-	private	int m;          // quantidade de arestas
-	private	int adj[][];    //matriz de adjacência
+	private final int n;            // quantidade de vértices
+	private	int m;                  // quantidade de arestas
+	private	float adj[][];          //matriz de adjacência
+
+	private final float INF = Float.MAX_VALUE;     // define o valor do infinito para grafos ponderados
 
 	public TGrafo(int n) {
 	    this.n = n;
-	    this.m = 0;         // inicialmente não há arestas
-	    this.adj = new int [n][n];
+	    this.m = 0;                // inicialmente não há arestas
+	    this.adj = new float [n][n];
 
 	    // inicia a matriz com zeros
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < n; j++) {
-				this.adj[i][j] = 0;
+				this.adj[i][j] = INF;
 			}
 		}
 	}
 
 	// insere uma aresta no Grafo tal que v é adjacente a w
-	public void insereA(int v, int w) {
-	    if(adj[v][w] == 0 ) {        // verifica se não temos aresta
-	        adj[v][w] = 1;
+	public void insereA(int v, int w, float valor) {
+	    if(adj[v][w] == INF) {        // verifica se não temos aresta
+	        adj[v][w] = valor;
 	        m++;
 	    }
 	}
 	
 	// remove uma aresta v->w do Grafo	
 	public void removeA(int v, int w) {
-	    if(adj[v][w] == 1 ){        // verifica se temos a aresta
-	        adj[v][w] = 0;
+	    if(adj[v][w] != INF){        // verifica se temos a aresta
+	        adj[v][w] = INF;
 	        m--;
 	    }
 	}
@@ -72,8 +74,8 @@ public class TGrafo {
 	    	System.out.print("\n");
 
 	        for(int w = 0; w < n; w++) {
-				if(adj[i][w] == 1) System.out.print("Adj[" + i + "," + w + "]= 1" + " ");
-				else System.out.print("Adj[" + i + "," + w + "]= 0" + " ");
+				if(adj[i][w] == INF) System.out.print("Adj[" + i + "," + w + "]= INF ");
+				else System.out.print("Adj[" + i + "," + w + "]= " + adj[i][w] + " ");
 			}
 	    }
 	    System.out.println("\n\nfim da impressao do grafo." );
