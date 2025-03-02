@@ -39,7 +39,13 @@ public class TGrafo {
 
 	// TODO: 1 - calcula o grau de entrada de um vértice
 	public int inDegree(int v) {
-		return 0;
+		int degree = 0;
+		for(int i=0; i<this.n; i++){
+			if(this.adj[i][v] != INF){
+				degree++;
+			}
+		}
+		return degree;
 	}
 
 	// TODO: 2 - calcula o grau de saída de um vértice

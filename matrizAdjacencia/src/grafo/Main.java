@@ -11,7 +11,17 @@ public class Main {
 		g.insereA(2,3, 4);
 		g.insereA(1,3, 5);
 
+
+	
 		// mostra o grafo preenchido
 		g.show();
+
+
+
+		System.out.println(g.degree(0));
+		System.out.println(g.degree(1));
+		System.out.println(g.degree(2));
+		System.out.println(g.degree(3));
+
 	}
 }
