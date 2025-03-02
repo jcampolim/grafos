@@ -1,10 +1,10 @@
-package grafo;
+package grafoMatriz;
 
 public class TGrafo {
 
 	private final int n;            // quantidade de vértices
 	private	int m;                  // quantidade de arestas
-	private	float adj[][];          //matriz de adjacência
+	private float[][] adj;          //matriz de adjacência
 
 	private final float INF = Float.MAX_VALUE;     // define o valor do infinito para grafos ponderados
 
@@ -21,7 +21,7 @@ public class TGrafo {
 		}
 	}
 
-	// insere uma aresta no Grafo tal que v é adjacente a w
+	// insere uma aresta no TGrafo tal que v é adjacente a w
 	public void insereA(int v, int w, float valor) {
 	    if(adj[v][w] == INF) {        // verifica se não temos aresta
 	        adj[v][w] = valor;
@@ -29,7 +29,7 @@ public class TGrafo {
 	    }
 	}
 	
-	// remove uma aresta v->w do Grafo	
+	// remove uma aresta v->w do TGrafo
 	public void removeA(int v, int w) {
 	    if(adj[v][w] != INF){        // verifica se temos a aresta
 	        adj[v][w] = INF;
@@ -37,7 +37,7 @@ public class TGrafo {
 	    }
 	}
 
-	// TODO: 1 - calcula o grau de entrada de um vértice
+	// 1 - calcula o grau de entrada de um vértice
 	public int inDegree(int v) {
 		int degree = 0;
 		for(int i=0; i<this.n; i++){

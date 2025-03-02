@@ -1,4 +1,4 @@
-package grafo;
+package grafoMatriz;
 
 public class Main {
 	public static void main(String[] args) {
@@ -11,12 +11,8 @@ public class Main {
 		g.insereA(2,3, 4);
 		g.insereA(1,3, 5);
 
-
-	
 		// mostra o grafo preenchido
 		g.show();
-
-
 
 		System.out.println(g.degree(0));
 		System.out.println(g.degree(1));
