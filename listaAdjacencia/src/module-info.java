@@ -5,5 +5,5 @@
  * @author icalc
  *
  */
-module Main {
+module MainLista {
 }

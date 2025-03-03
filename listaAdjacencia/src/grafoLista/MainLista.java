@@ -1,6 +1,6 @@
 package grafoLista;
 
-public class Main {
+public class MainLista {
 
 	public static void main(String[] args) {
 	    TGrafo g = new TGrafo(4);

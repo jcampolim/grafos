@@ -1,6 +1,6 @@
 package grafoMatriz;
 
-public class Main {
+public class MainMatriz {
 	public static void main(String[] args) {
 		TGrafo g = new TGrafo(4);
 
