@@ -76,4 +76,19 @@ public class TGrafoND {
 
         return 0;
     }
+
+    public void show() {
+        System.out.println("n: " + n);
+        System.out.println("m: " + m);
+
+        for(int i = 0; i < n; i++){
+            System.out.print("\n");
+
+            for(int w = 0; w < n; w++) {
+                if(adj[i][w] == 0) System.out.print("Adj[" + i + "," + w + "] = 0 ");
+                else System.out.print("Adj[" + i + "," + w + "] = 1 ");
+            }
+        }
+        System.out.println("\n\nfim da impressao do grafo." );
+    }
 }

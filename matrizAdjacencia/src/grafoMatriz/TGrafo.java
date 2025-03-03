@@ -80,8 +80,8 @@ public class TGrafo {
 	    	System.out.print("\n");
 
 	        for(int w = 0; w < n; w++) {
-				if(adj[i][w] == INF) System.out.print("Adj[" + i + "," + w + "]= INF ");
-				else System.out.print("Adj[" + i + "," + w + "]= " + adj[i][w] + " ");
+				if(adj[i][w] == INF) System.out.print("Adj[" + i + "," + w + "] = INF ");
+				else System.out.print("Adj[" + i + "," + w + "] = " + adj[i][w] + " ");
 			}
 	    }
 	    System.out.println("\n\nfim da impressao do grafo." );
