@@ -127,6 +127,43 @@ public class TGrafo {
 		}
 	}
 
+	// verifica se a aresta v->w existe
+	private boolean verificaAresta(int v, int w) {
+		TNo no = adj[v];
+		
+		while(no != null) {
+			if(no.w == w) return true;
+			no = no.prox;
+		}
+		
+		return false;
+	}
+	
+	// 27 - verifica se o grafo é simétrico
+	public int verificaSimetria() {
+		for(int i = 0; i < n; i++) {
+			TNo no = adj[i];
+			
+			while(no != null) {
+				if(!verificaAresta(no.w, i)) return 0;
+				no = no.prox;
+			}
+		}
+		
+		return 1;
+	}
+
+	// 30 - remove um vértice do grafo (removendo as arestas associadas)
+	public void removeVertice(int v) {
+		for(int i = 0; i < n; i++) {
+			if(i != v && verificaAresta(i, v)) {
+				removeA(i, v);
+			}
+		}
+		
+		adj[v] = null;
+	}
+
 	// apresenta o grafo contendo número de vértices, arestas e a lista de adjacência obtida
 	public void show() {
 	    System.out.println("n: " + n);
