@@ -87,14 +87,20 @@ public class TGrafo {
 	public Integer lerGTGrafo(String file){
 		try {
             Scanner scanner = new Scanner(new File(file));
-            int V = scanner.nextInt(); // Número de vértices
-            int A = scanner.nextInt(); // Número de arestas
-            this.m = V;
-		    this.n = A;
+            this.n = scanner.nextInt(); // Numero de vértices
+            this.m = scanner.nextInt(); // Numero de arestas
 		    this.adj = new float [n][n];
-		    int arestas = 0;
+			int arestasLidas = 0;
+
+			 // Inicializa a matriz com INF
+			 for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					this.adj[i][j] = INF;
+				}
+			}
+		    
             while (scanner.hasNextInt()) {
-				arestas++;
+				arestasLidas++;
                 int origem = scanner.nextInt();
                 int destino = scanner.nextInt();
 				this.insereA(origem, destino, 0);
@@ -102,7 +108,7 @@ public class TGrafo {
 
             scanner.close();
 			// Verificar erro: numero de arestas n e quantidade de linhas no arquivo diferente
-			if(arestas != n) return 0;
+			if(arestasLidas != m) return 0;
             return 1;
 
         } catch (FileNotFoundException e) {
