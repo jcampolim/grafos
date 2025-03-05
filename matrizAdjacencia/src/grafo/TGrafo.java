@@ -1,5 +1,9 @@
 package grafo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class TGrafo {
 
 	private final int n;            // quantidade de vértices
@@ -48,7 +52,7 @@ public class TGrafo {
 		return degree;
 	}
 
-	// TODO: 2 - calcula o grau de saída de um vértice
+	// 2 - calcula o grau de saída de um vértice
 	public int outDegree(int v) {
 		return 0;
 	}
@@ -57,6 +61,14 @@ public class TGrafo {
 	public int degree(int v) {
 		return inDegree(v) + outDegree(v);
 	}
+
+	// 4 - verifica se um vértice é fonte
+	
+	public int verificaFonte(int v){
+		return (outDegree(v) > 0 && inDegree(v) == 0)? 1 : 0; 
+	}
+	
+	
 
 	// 6 - verifica se o grafo é simétrico
 	public int verificaSimetria() {
@@ -70,6 +82,35 @@ public class TGrafo {
 
 		return 1;
 	}
+
+	// 7 - constroi grafo apartir de file
+	public TGrafo lerGTGrafo(String file){
+		try {
+            Scanner scanner = new Scanner(new File(file));
+            int V = scanner.nextInt(); // Número de vértices
+            int A = scanner.nextInt(); // Número de arestas
+
+            TGrafo grafo = new TGrafo(V);
+
+            while (scanner.hasNextInt()) {
+                int origem = scanner.nextInt();
+                int destino = scanner.nextInt();
+				
+                
+            }
+
+            scanner.close();
+            return grafo;
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado: " + file);
+            return null;
+        }
+
+
+		
+	}
+
+
 
 	// apresenta o grafo contendo número de vértices, arestas e a matriz de adjacência obtida
 	public void show() {

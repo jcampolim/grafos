@@ -18,10 +18,6 @@ public class Main {
 
 
 
-		System.out.println(g.degree(0));
-		System.out.println(g.degree(1));
-		System.out.println(g.degree(2));
-		System.out.println(g.degree(3));
 
 	}
 }
