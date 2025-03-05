@@ -1,10 +1,10 @@
-package grafo;
+package grafoMatriz;
 
 public class TGrafoND {
     
     private	int n;          // quantidade de vértices
 	private	int m;          // quantidade de arestas
-	private	int adj[][];    //matriz de adjacência
+	private int[][] adj;    //matriz de adjacência
 
 	public TGrafoND(int n) {
 	    this.n = n;
@@ -19,7 +19,7 @@ public class TGrafoND {
 		}
 	}
 
-	// insere uma aresta no Grafo tal que v é adjacente a w
+	// insere uma aresta no TGrafo tal que v é adjacente a w e w é adjacente a v
 	public void insereA(int v, int w) {
 	    if(adj[v][w] == 0) {         // verifica se não temos aresta
 	        adj[v][w] = 1;
@@ -28,7 +28,7 @@ public class TGrafoND {
 	    }
 	}
 	
-	// remove uma aresta v->w do Grafo	
+	// remove uma aresta v->w/w->v do TGrafo
 	public void removeA(int v, int w) {
 	    if(adj[v][w] == 1) {        // verifica se temos a aresta
 	        adj[v][w] = 0;
@@ -75,5 +75,20 @@ public class TGrafoND {
         }
 
         return 0;
+    }
+
+    public void show() {
+        System.out.println("n: " + n);
+        System.out.println("m: " + m);
+
+        for(int i = 0; i < n; i++){
+            System.out.print("\n");
+
+            for(int w = 0; w < n; w++) {
+                if(adj[i][w] == 0) System.out.print("Adj[" + i + "," + w + "] = 0 ");
+                else System.out.print("Adj[" + i + "," + w + "] = 1 ");
+            }
+        }
+        System.out.println("\n\nfim da impressao do grafo." );
     }
 }
