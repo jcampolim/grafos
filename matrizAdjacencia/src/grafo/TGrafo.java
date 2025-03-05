@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class TGrafo {
 
-	private final int n;            // quantidade de vértices
+	private  int n;            // quantidade de vértices
 	private	int m;                  // quantidade de arestas
 	private	float adj[][];          //matriz de adjacência
 
@@ -84,30 +84,31 @@ public class TGrafo {
 	}
 
 	// 7 - constroi grafo apartir de file
-	public TGrafo lerGTGrafo(String file){
+	public Integer lerGTGrafo(String file){
 		try {
             Scanner scanner = new Scanner(new File(file));
             int V = scanner.nextInt(); // Número de vértices
             int A = scanner.nextInt(); // Número de arestas
-
-            TGrafo grafo = new TGrafo(V);
-
+            this.m = V;
+		    this.n = A;
+		    this.adj = new float [n][n];
+		    int arestas = 0;
             while (scanner.hasNextInt()) {
+				arestas++;
                 int origem = scanner.nextInt();
                 int destino = scanner.nextInt();
-				
-                
+				this.insereA(origem, destino, 0);
             }
 
             scanner.close();
-            return grafo;
+			// Verificar erro: numero de arestas n e quantidade de linhas no arquivo diferente
+			if(arestas != n) return 0;
+            return 1;
+
         } catch (FileNotFoundException e) {
             System.out.println("Arquivo não encontrado: " + file);
             return null;
-        }
-
-
-		
+        }	
 	}
 
 
