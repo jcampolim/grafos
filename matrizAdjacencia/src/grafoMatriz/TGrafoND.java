@@ -59,6 +59,8 @@ public class TGrafoND {
         return true;
     }
 
+    
+
     // 15 - retorna o tipo de conexidade
     public int verificaConexidade() {
         for(int i = 0; i < n; i++) {

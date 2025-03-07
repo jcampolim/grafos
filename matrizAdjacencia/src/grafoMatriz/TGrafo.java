@@ -118,6 +118,77 @@ public class TGrafo {
 	}
 
 
+	// 13) Fazer um método que verifique e retorne e o grafo (dirigido) é completo.
+    public boolean verificaCompleto(){
+        for(int i = 0; i < n; i++){
+			for(int j=0; j < n; j++){
+				if(this.adj[i][j] == INF && i != j) return false;
+			}
+		}
+		return true;
+    }
+
+
+	// 16) Método que retorna a categoria de conexidade para um grafo direcionado 
+	public int categoriaConexidade() {
+    	
+    	TGrafo reduzido = this;
+    	int R = reduzido.n;  // número de vértices no grafo reduzido
+
+    	// Caso especial: grafo vazio 
+    	if (R == 0)
+        	return 0;
+    	if (R == 1)
+        	return 3; 
+
+    	// Verifica unilateralidade (C2):
+    	for (int i = 0; i < R; i++) {
+        	for (int j = 0; j < R; j++) {
+            	if (i != j) {
+                	if (!(existeCaminho(reduzido, i, j) || existeCaminho(reduzido, j, i))) {
+                    	// Se para algum par não houver caminho em nenhuma direção,
+                    	// não é unilateral; passa para a verificação de conectividade fraca.
+                    	return verificaConectividadeFraca(reduzido);
+                	}
+            	}
+        	}
+    	}
+    	return 2;  // Se para todo par há caminho em ao menos uma direção, o grafo é unilateral (C2)
+	}
+
+	// Verifica se há caminho de 'inicio' até 'fim' num grafo direcionado
+	private boolean existeCaminho(TGrafo g, int inicio, int fim) {
+    	boolean[] visited = new boolean[g.n];
+    	return DFSPath(g, inicio, fim, visited);
+	}
+	private boolean DFSPath(TGrafo g, int current, int target, boolean[] visited) {
+    	if (current == target)
+        	return true;
+    	visited[current] = true;
+    	for (int i = 0; i < g.n; i++) {
+        	if (g.adj[current][i] != g.INF && !visited[i]) {
+            	if (DFSPath(g, i, target, visited))
+            	    return true;
+        	}
+    	}
+    	return false;
+	}
+
+	private int verificaConectividadeFraca(TGrafo g) {
+		TGrafoND grafoND = new TGrafoND(g.n);
+		for (int i = 0; i < g.n; i++) {
+			for (int j = i + 1; j < g.n; j++) {
+				if (g.adj[i][j] != g.INF || g.adj[j][i] != g.INF) {
+					grafoND.insereA(i, j);
+				}
+			}
+		}
+		// O método verificaConexidade() da classe TGrafoND retorna 0 se o grafo for conectado ou 1 se estiver desconexo.
+		int conex = grafoND.verificaConexidade();
+		return (conex == 0) ? 1 : 0;
+	}
+
+
 
 	// apresenta o grafo contendo número de vértices, arestas e a matriz de adjacência obtida
 	public void show() {
