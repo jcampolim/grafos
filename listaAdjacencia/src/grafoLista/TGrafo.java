@@ -1,8 +1,11 @@
 package grafoLista;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 class TNo {
 	public int w;      // vértice que é adjacente ao elemento da lista
@@ -11,7 +14,7 @@ class TNo {
 
 public class TGrafo {
 	
-	private final int n;             // quantidade de vértices
+	private int n;             		 // quantidade de vértices
 	private	int m;                   // quantidade de arestas
 	private TNo[] adj;               // vetor onde cada entrada guarda o início de uma lista
 	
@@ -107,6 +110,7 @@ public class TGrafo {
 		}
 		return count;
 	}
+	
 	// TODO: 20 - calcula o grau de saída de um vértice
 	public int outDegree(int v) {
 		return 0;
@@ -195,8 +199,34 @@ public class TGrafo {
 				no = no.prox;
 			}
 		}
-		
 		return 1;
+	}
+
+	// 28 - constroi grafo apartir de arquivo
+
+	public Integer lerGTGrafo(String file){
+		try {
+            Scanner scanner = new Scanner(new File(file));
+            this.n = scanner.nextInt(); // Numero de vértices
+            this.m = scanner.nextInt(); // Numero de arestas
+			int arestasLidas = 0;
+
+            while (scanner.hasNextInt()) {
+				arestasLidas++;
+                int origem = scanner.nextInt();
+                int destino = scanner.nextInt();
+				this.insereA(origem, destino);
+            }
+
+            scanner.close();
+			// Verificar erro: numero de arestas n e quantidade de linhas no arquivo diferente
+			if(arestasLidas != m) return 0;
+            return 1;
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado: " + file);
+            return null;
+        }	
 	}
 
 	// 30 - remove um vértice do grafo (removendo as arestas associadas)
