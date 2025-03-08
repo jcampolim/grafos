@@ -18,14 +18,7 @@ public class MainLista {
 
 	    System.out.print("\nDepois da remoção da aresta (0,3)\n");
 	    g.show();
-
-		System.out.println("Grau de saída do vértice 2: " + g.outDegree(2)); 
-
-		System.out.println("Verificar Sorvedouro - Vértice 1" + g.verificaSorvedouro(1));
-
-		g.removeVerticeND(2); 
-		System.out.print("\nDepois da remoção do vértice 2\n");
-		g.show();
+		
 	}
 
 }

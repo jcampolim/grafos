@@ -1,5 +1,7 @@
 package grafoMatriz;
 
+import grafoMatriz.TGrafo;
+
 public class MainMatriz {
 	public static void main(String[] args) {
 		TGrafo g = new TGrafo(4);
@@ -18,22 +20,6 @@ public class MainMatriz {
 		System.out.println(g.degree(1));
 		System.out.println(g.degree(2));
 		System.out.println(g.degree(3));
-
-		System.out.println("Grau de saída do vértice 2: " + g.outDegree(2)); 
-
-		System.out.println("Verificar Sorvedouro - Vértice 1" + g.verificaSorvedouro(1));
-
-		g.removeVertice(2);
-		System.out.print("\nDepois da remoção do vértice 2\n");
-		g.show();  
-
-		System.out.println("\nGrafo complementar:");
-		TGrafo complemento = g.grafoComplementar();  
-		complemento.show();  
-
-		System.out.println("\nGrafo reduzido:");
-		TGrafo reduzido = g.grafoReduzido();  
-		reduzido.show(); 
 
 	}
 }
