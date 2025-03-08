@@ -111,9 +111,18 @@ public class TGrafo {
 		return count;
 	}
 	
-	// TODO: 20 - calcula o grau de saída de um vértice
+	// 20 - calcula o grau de saída de um vértice
 	public int outDegree(int v) {
-		return 0;
+
+		int grau = 0;
+		TNo no = adj[v];
+
+		while (no != null) {
+			grau++;
+			no = no.prox;
+		}
+
+    	return grau;
 	}
 
 	// 21 - calcula o grau de um vértice
@@ -188,6 +197,15 @@ public class TGrafo {
 	 public int verificaFonte(int v){
 		return (outDegree(v) > 0 && inDegree(v) == 0)? 1 : 0; 
 	}
+
+	// 26 - verifica se o vértice é sorvedouro
+		public int verificaSorvedouro(int v) {
+			int grauEntrada = inDegree(v); 
+			int grauSaida = outDegree(v);   
+
+			if (grauEntrada > 0 && grauSaida == 0) return 1; 
+			return 0;  
+	}
 	
 	// 27 - verifica se o grafo é simétrico
 	public int verificaSimetria() {
@@ -200,6 +218,22 @@ public class TGrafo {
 			}
 		}
 		return 1;
+	}
+
+	// 29 - remove vértice do grafo não direcionado
+	public void removeVerticeND(int v) {
+		
+		while (adj[v] != null) {
+			removeA(v, adj[v].w);
+		}
+
+		for (int i = 0; i < n; i++) {
+			if (i != v && verificaAresta(i, v)) {
+				removeA(i, v);
+			}
+		}
+
+		adj[v] = null;
 	}
 
 	// 28 - constroi grafo apartir de arquivo

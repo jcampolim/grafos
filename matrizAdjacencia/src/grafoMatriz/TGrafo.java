@@ -54,7 +54,15 @@ public class TGrafo {
 
 	// 2 - calcula o grau de saída de um vértice
 	public int outDegree(int v) {
-		return 0;
+		int degree = 0;
+
+		for (int i = 0; i < this.n; i++) {
+			if (this.adj[v][i] != INF) {
+				degree++;
+			}
+		}
+
+		return degree;
 	}
 
 	// 3 - calcula o grau de um vértice
@@ -68,7 +76,15 @@ public class TGrafo {
 		return (outDegree(v) > 0 && inDegree(v) == 0)? 1 : 0; 
 	}
 	
-	
+	// 5 - verifica se o vértice é sorvedouro
+	public int verificaSorvedouro(int v) {
+		
+		int grauEntrada = inDegree(v)
+		int grauSaida = outDegree(v);
+		
+		if (grauEntrada > 0 && grauSaida == 0) return 1;
+		return 0;
+	}
 
 	// 6 - verifica se o grafo é simétrico
 	public int verificaSimetria() {
@@ -117,6 +133,31 @@ public class TGrafo {
         }	
 	}
 
+	// 11 - remove vértice do grafo direcionado
+	public void removeVertice(int v) {
+        for (int i = 0; i < n; i++) {
+			if (adj[v][i] != INF) {
+				adj[v][i] = INF;
+				m--;
+			}
+    	}
+
+		for (int i = 0; i < n; i++) {
+			if (adj[i][v] != INF) {
+				adj[i][v] = INF;
+				m--;
+			}
+		}
+
+		for (int i = v; i < n - 1; i++) {
+			for (int j = 0; j < n; j++) {
+				adj[i][j] = adj[i + 1][j];
+				adj[j][i] = adj[j][i + 1];
+			}
+		}
+
+		n--;
+	}
 
 	// 13) Fazer um método que verifique e retorne e o grafo (dirigido) é completo.
     public boolean verificaCompleto(){
@@ -128,6 +169,20 @@ public class TGrafo {
 		return true;
     }
 
+	// 14 - retorna o grafo complementar de um grafo dirigido
+	public TGrafo grafoComplementar() {
+		TGrafo complemento = new TGrafo(this.n);
+
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (i != j && adj[i][j] == INF) {  
+					complemento.insereA(i, j, 0);
+				}
+			}
+		}
+
+		return complemento;
+	}
 
 	// 16) Método que retorna a categoria de conexidade para um grafo direcionado 
 	public int categoriaConexidade() {
@@ -155,6 +210,33 @@ public class TGrafo {
     	}
     	return 2;  // Se para todo par há caminho em ao menos uma direção, o grafo é unilateral (C2)
 	}
+
+	// 17 - retorna o grafo reduzido de um grafo direcionado
+	public TGrafo grafoReduzido() {
+		TGrafo reduzido = new TGrafo(this.n);
+
+		boolean[] verticeAtivo = new boolean[n];
+		
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (adj[i][j] != INF || adj[j][i] != INF) {
+					verticeAtivo[i] = true;
+					verticeAtivo[j] = true;
+				}
+			}
+		}
+
+		for (int i = 0; i < n; i++) {
+			if (verticeAtivo[i]) { 
+				for (int j = 0; j < n; j++) {
+					if (verticeAtivo[j] && adj[i][j] != INF) reduzido.insereA(i, j, adj[i][j]);
+				}
+			}
+		}
+
+		return reduzido;
+	}
+
 
 	// Verifica se há caminho de 'inicio' até 'fim' num grafo direcionado
 	private boolean existeCaminho(TGrafo g, int inicio, int fim) {

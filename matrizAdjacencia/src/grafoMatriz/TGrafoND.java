@@ -48,6 +48,26 @@ public class TGrafoND {
         return degree;
     }
 
+    // 11 - remove vértice do grafo não direcionado
+    public void removeVertice(int v) {
+        for (int i = 0; i < n; i++) {
+            if (adj[v][i] == 1) {
+                adj[v][i] = 0;
+                adj[i][v] = 0;
+                m--;
+            }
+        }
+
+        for (int i = v; i < n - 1; i++) {
+            for (int j = 0; j < n; j++) {
+                adj[i][j] = adj[i + 1][j];
+                adj[j][i] = adj[j][i + 1];
+            }
+        }
+
+        n--;
+    }
+
     // 12 - verifica se o grafo é completo
     public boolean verificaCompleto() {
         for(int i = 0; i < n; i++) {
@@ -59,7 +79,20 @@ public class TGrafoND {
         return true;
     }
 
-    
+    // 14 - retorna o grafo complementar de um grafo não dirigido 
+    public TGrafoND grafoComplementar() {
+        TGrafoND complemento = new TGrafoND(this.n);
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i != j && adj[i][j] == 0) {  
+                    complemento.insereA(i, j);
+                }
+            }
+        }
+
+        return complemento;
+    }
 
     // 15 - retorna o tipo de conexidade
     public int verificaConexidade() {
