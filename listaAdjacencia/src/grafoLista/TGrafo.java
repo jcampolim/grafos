@@ -1,6 +1,7 @@
 package grafoLista;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class TNo {
@@ -147,8 +148,39 @@ public class TGrafo {
 		
 		return false;
 	}
-	 // 25 - verifica se um vértice é fonte
 
+	// 22 - verifica iqualdade 2 grafos
+	public boolean equals(TGrafo outroGrafo) {
+
+        if (this.n != outroGrafo.n || this.m != outroGrafo.m) return false;
+
+		List<Integer> lista1 = new ArrayList<>();
+        List<Integer> lista2 = new ArrayList<>();
+
+        // Percorre cada lista de adjacência
+        for (int i = 0; i < this.n; i++) {
+            TNo no1 = this.adj[i];
+            TNo no2 = outroGrafo.adj[i];
+
+            while (no1 != null) {
+                lista1.add(no1.w);
+                no1 = no1.prox;
+            }
+            while (no2 != null) {
+                lista2.add(no2.w);
+                no2 = no2.prox;
+            }
+
+            Collections.sort(lista1);
+            Collections.sort(lista2);
+
+        }
+		return (lista1.equals(lista2));   
+    }
+
+
+
+	 // 25 - verifica se um vértice é fonte
 	 public int verificaFonte(int v){
 		return (outDegree(v) > 0 && inDegree(v) == 0)? 1 : 0; 
 	}
