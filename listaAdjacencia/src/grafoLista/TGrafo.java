@@ -199,12 +199,12 @@ public class TGrafo {
 	}
 
 	// 26 - verifica se o vértice é sorvedouro
-		public int verificaSorvedouro(int v) {
-			int grauEntrada = inDegree(v); 
-			int grauSaida = outDegree(v);   
+	public int verificaSorvedouro(int v) {
+		int grauEntrada = inDegree(v); 
+		int grauSaida = outDegree(v);   
 
-			if (grauEntrada > 0 && grauSaida == 0) return 1; 
-			return 0;  
+		if (grauEntrada > 0 && grauSaida == 0) return 1; 
+		return 0;  
 	}
 	
 	// 27 - verifica se o grafo é simétrico
@@ -222,7 +222,6 @@ public class TGrafo {
 
 	// 29 - remove vértice do grafo não direcionado
 	public void removeVerticeND(int v) {
-		
 		while (adj[v] != null) {
 			removeA(v, adj[v].w);
 		}
