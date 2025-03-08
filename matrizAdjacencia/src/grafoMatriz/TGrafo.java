@@ -132,7 +132,7 @@ public class TGrafo {
 	// 16) Método que retorna a categoria de conexidade para um grafo direcionado 
 	public int categoriaConexidade() {
     	
-    	TGrafo reduzido = this;
+    	TGrafo reduzido = this.grafoReduzido();
     	int R = reduzido.n;  // número de vértices no grafo reduzido
 
     	// Caso especial: grafo vazio 

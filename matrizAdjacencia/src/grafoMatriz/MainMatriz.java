@@ -14,15 +14,10 @@ public class MainMatriz {
 		// mostra o grafo preenchido
 		g.show();
 
-<<<<<<< HEAD:matrizAdjacencia/src/grafo/Main.java
-
-
-=======
 		System.out.println(g.degree(0));
 		System.out.println(g.degree(1));
 		System.out.println(g.degree(2));
 		System.out.println(g.degree(3));
->>>>>>> 0368db33d39f22af76f4aaff002bc24ff3af7e00:matrizAdjacencia/src/grafoMatriz/MainMatriz.java
 
 	}
 }
