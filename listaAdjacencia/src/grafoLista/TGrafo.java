@@ -92,11 +92,20 @@ public class TGrafo {
 		}
 	}
 
+
 	// TODO: 19 - calcula o grau de entrada de um vértice
 	public int inDegree(int v) {
-		return 0;
+		int count = 0;
+		for (int i = 0; i < n; i++) {
+			TNo no = adj[i];
+			while (no != null) {
+				if (no.w == v)
+					count++;
+				no = no.prox;
+			}
+		}
+		return count;
 	}
-
 	// TODO: 20 - calcula o grau de saída de um vértice
 	public int outDegree(int v) {
 		return 0;
@@ -137,6 +146,11 @@ public class TGrafo {
 		}
 		
 		return false;
+	}
+	 // 25 - verifica se um vértice é fonte
+
+	 public int verificaFonte(int v){
+		return (outDegree(v) > 0 && inDegree(v) == 0)? 1 : 0; 
 	}
 	
 	// 27 - verifica se o grafo é simétrico
