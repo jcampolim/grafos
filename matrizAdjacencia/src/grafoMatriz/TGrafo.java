@@ -79,7 +79,7 @@ public class TGrafo {
 	// 5 - verifica se o vértice é sorvedouro
 	public int verificaSorvedouro(int v) {
 		
-		int grauEntrada = inDegree(v)
+		int grauEntrada = inDegree(v);
 		int grauSaida = outDegree(v);
 		
 		if (grauEntrada > 0 && grauSaida == 0) return 1;
