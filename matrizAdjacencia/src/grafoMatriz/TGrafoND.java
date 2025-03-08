@@ -113,8 +113,7 @@ public class TGrafoND {
     }
 
     public void show() {
-        System.out.println("n: " + n);
-        System.out.println("m: " + m);
+        System.out.println("> Início da impressão do grafo (n = " + n + " e m = " + m + "): ");
 
         for(int i = 0; i < n; i++){
             System.out.print("\n");
@@ -124,6 +123,7 @@ public class TGrafoND {
                 else System.out.print("Adj[" + i + "," + w + "] = 1 ");
             }
         }
-        System.out.println("\n\nfim da impressao do grafo." );
+
+        System.out.println("\n\n> Fim da impressao do grafo." );
     }
 }
