@@ -130,6 +130,35 @@ public class TGrafo {
 		return inDegree(v) + outDegree(v);
 	}
 
+	// 22 - verifica iqualdade 2 grafos
+	public boolean equals(TGrafo outroGrafo) {
+
+        if (this.n != outroGrafo.n || this.m != outroGrafo.m) return false;
+
+		List<Integer> lista1 = new ArrayList<>();
+        List<Integer> lista2 = new ArrayList<>();
+
+        // Percorre cada lista de adjacência
+        for (int i = 0; i < this.n; i++) {
+            TNo no1 = this.adj[i];
+            TNo no2 = outroGrafo.adj[i];
+
+            while (no1 != null) {
+                lista1.add(no1.w);
+                no1 = no1.prox;
+            }
+            while (no2 != null) {
+                lista2.add(no2.w);
+                no2 = no2.prox;
+            }
+
+            Collections.sort(lista1);
+            Collections.sort(lista2);
+
+        }
+		return (lista1.equals(lista2));   
+    }
+
 	// 24 - inverte a ordem dos vértices adjacêntes na lista de adjacência
 	public void inveteOrdem(int v) {
 		List<Integer> nosAdjacentes = new ArrayList<>();
@@ -162,37 +191,6 @@ public class TGrafo {
 		return false;
 	}
 
-	// 22 - verifica iqualdade 2 grafos
-	public boolean equals(TGrafo outroGrafo) {
-
-        if (this.n != outroGrafo.n || this.m != outroGrafo.m) return false;
-
-		List<Integer> lista1 = new ArrayList<>();
-        List<Integer> lista2 = new ArrayList<>();
-
-        // Percorre cada lista de adjacência
-        for (int i = 0; i < this.n; i++) {
-            TNo no1 = this.adj[i];
-            TNo no2 = outroGrafo.adj[i];
-
-            while (no1 != null) {
-                lista1.add(no1.w);
-                no1 = no1.prox;
-            }
-            while (no2 != null) {
-                lista2.add(no2.w);
-                no2 = no2.prox;
-            }
-
-            Collections.sort(lista1);
-            Collections.sort(lista2);
-
-        }
-		return (lista1.equals(lista2));   
-    }
-
-
-
 	 // 25 - verifica se um vértice é fonte
 	 public int verificaFonte(int v){
 		return (outDegree(v) > 0 && inDegree(v) == 0)? 1 : 0; 
@@ -220,23 +218,7 @@ public class TGrafo {
 		return 1;
 	}
 
-	// 29 - remove vértice do grafo não direcionado
-	public void removeVerticeND(int v) {
-		while (adj[v] != null) {
-			removeA(v, adj[v].w);
-		}
-
-		for (int i = 0; i < n; i++) {
-			if (i != v && verificaAresta(i, v)) {
-				removeA(i, v);
-			}
-		}
-
-		adj[v] = null;
-	}
-
 	// 28 - constroi grafo apartir de arquivo
-
 	public Integer lerGTGrafo(String file){
 		try {
             Scanner scanner = new Scanner(new File(file));
@@ -260,6 +242,21 @@ public class TGrafo {
             System.out.println("Arquivo não encontrado: " + file);
             return null;
         }	
+	}
+
+	// 29 - remove vértice do grafo não direcionado
+	public void removeVerticeND(int v) {
+		while (adj[v] != null) {
+			removeA(v, adj[v].w);
+		}
+
+		for (int i = 0; i < n; i++) {
+			if (i != v && verificaAresta(i, v)) {
+				removeA(i, v);
+			}
+		}
+
+		adj[v] = null;
 	}
 
 	// 30 - remove um vértice do grafo (removendo as arestas associadas)
