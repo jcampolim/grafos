@@ -21,7 +21,7 @@ public class MainMatriz {
 
 		System.out.println("Grau de saída do vértice 2: " + g.outDegree(2)); 
 
-		System.out.println("Verificar Sorvedouro - Vértice 1" + grafo.verificaSorvedouro(1));
+		System.out.println("Verificar Sorvedouro - Vértice 1" + g.verificaSorvedouro(1));
 
 		g.removeVertice(2);
 		System.out.print("\nDepois da remoção do vértice 2\n");
