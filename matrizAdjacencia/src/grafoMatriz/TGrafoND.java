@@ -50,6 +50,7 @@ public class TGrafoND {
 
     // 11 - remove vértice do grafo não direcionado
     public void removeVertice(int v) {
+        // remove as arestas do vértice v
         for (int i = 0; i < n; i++) {
             if (adj[v][i] == 1) {
                 adj[v][i] = 0;
@@ -58,6 +59,7 @@ public class TGrafoND {
             }
         }
 
+        // remove a linha e a coluna do vértice na matriz de adjacência
         for (int i = v; i < n - 1; i++) {
             for (int j = 0; j < n; j++) {
                 adj[i][j] = adj[i + 1][j];
@@ -96,20 +98,36 @@ public class TGrafoND {
 
     // 15 - retorna o tipo de conexidade
     public int verificaConexidade() {
+        // verifica se existe um caminho para todo par de vértice
         for(int i = 0; i < n; i++) {
-            boolean desconexo = true;
-
             for(int j = 0; j < n; j++) {
-                if(adj[i][j] == 1) {
-                    desconexo = false;
-                    break;
+                if (!existeCaminho(this, i, j)) {
+                    return 1;
                 }
             }
-
-            if(desconexo) return 1;
         }
 
         return 0;
+    }
+
+    private boolean existeCaminho(TGrafoND g, int inicio, int fim) {
+        boolean[] visitado = new boolean[g.n];
+        return buscaCaminho(g, inicio, fim, visitado);
+    }
+
+    // faz uma busca de profundidade no grafo para verificar se é possível chegar de um vértice a outro
+    private boolean buscaCaminho(TGrafoND grafo, int atual, int fim, boolean[] visitado) {
+        if (atual == fim) return true;
+
+        visitado[atual] = true;
+
+        for (int i = 0; i < grafo.n; i++) {
+            if(grafo.adj[atual][i] != 0 && !visitado[i]) {
+                if(buscaCaminho(grafo, i, fim, visitado)) return true;
+            }
+        }
+
+        return false;
     }
 
     public void show() {

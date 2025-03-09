@@ -7,6 +7,7 @@ public class MainMatriz {
 		TGrafo g1 = new TGrafo(10);
 
 		g1.insereA(0, 3, 1);
+		g1.insereA(1, 0, 2);
 		g1.insereA(1, 2, 2);
 		g1.insereA(3, 6, 3);
 		g1.insereA(3, 4, 4);
@@ -95,7 +96,7 @@ public class MainMatriz {
 
 		System.out.println("\n  > 11) Método que permite remover uma areta do grafo (dirigido ou não dirigido).");
 
-		//g1.removeVertice(7);
+		g1.removeVertice(7);
 		g3.removeVertice(1);
 
 		System.out.println("    - Vértice 7 removido do grafo G1: \n");

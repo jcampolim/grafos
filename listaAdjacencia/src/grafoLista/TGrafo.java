@@ -29,7 +29,7 @@ public class TGrafo {
 	    this.adj = aux;
 	}
 
-	// insere uma aresta v->w no grafo, onde v e w são distintos, positivos e menores que n
+	// insere uma aresta v -> w no grafo, onde v e w são distintos, positivos e menores que n
 	public void insereA(int v, int w) {
 	    TNo novoNo;
 
@@ -59,7 +59,7 @@ public class TGrafo {
 	    m++;	
 	}
 
-	// remove a aresta v->w, onde v e w são distintos, positivos e menores que n
+	// remove a aresta v -> w, onde v e w são distintos, positivos e menores que n
 	public void removeA(int v, int w) {
 	    // obtém o início da lista do vértice v
 	    TNo no = adj[v];
@@ -97,23 +97,23 @@ public class TGrafo {
 	}
 
 
-	// TODO: 19 - calcula o grau de entrada de um vértice
+	// 19 - calcula o grau de entrada de um vértice
 	public int inDegree(int v) {
-		int count = 0;
-		for (int i = 0; i < n; i++) {
+		int grau = 0;
+		for(int i = 0; i < n; i++) {
 			TNo no = adj[i];
+
 			while (no != null) {
-				if (no.w == v)
-					count++;
+				if (no.w == v) grau++;
 				no = no.prox;
 			}
 		}
-		return count;
+
+		return grau;
 	}
 	
 	// 20 - calcula o grau de saída de um vértice
 	public int outDegree(int v) {
-
 		int grau = 0;
 		TNo no = adj[v];
 
@@ -132,7 +132,6 @@ public class TGrafo {
 
 	// 22 - verifica iqualdade 2 grafos
 	public boolean equals(TGrafo outroGrafo) {
-
         if (this.n != outroGrafo.n || this.m != outroGrafo.m) return false;
 
 		List<Integer> lista1 = new ArrayList<>();
@@ -147,6 +146,7 @@ public class TGrafo {
                 lista1.add(no1.w);
                 no1 = no1.prox;
             }
+
             while (no2 != null) {
                 lista2.add(no2.w);
                 no2 = no2.prox;
@@ -154,7 +154,6 @@ public class TGrafo {
 
             Collections.sort(lista1);
             Collections.sort(lista2);
-
         }
 		return (lista1.equals(lista2));   
     }
@@ -179,7 +178,7 @@ public class TGrafo {
 		}
 	}
 
-	// verifica se a aresta v->w existe
+	// verifica se a aresta v -> w existe
 	private boolean verificaAresta(int v, int w) {
 		TNo no = adj[v];
 		
@@ -191,18 +190,14 @@ public class TGrafo {
 		return false;
 	}
 
-	 // 25 - verifica se um vértice é fonte
-	 public int verificaFonte(int v){
-		return (outDegree(v) > 0 && inDegree(v) == 0)? 1 : 0; 
+	// 25 - verifica se um vértice é fonte
+	public int verificaFonte(int v){
+		return (outDegree(v) > 0 && inDegree(v) == 0) ? 1 : 0;
 	}
 
 	// 26 - verifica se o vértice é sorvedouro
 	public int verificaSorvedouro(int v) {
-		int grauEntrada = inDegree(v); 
-		int grauSaida = outDegree(v);   
-
-		if (grauEntrada > 0 && grauSaida == 0) return 1; 
-		return 0;  
+		return (inDegree(v) > 0 && outDegree(v) == 0) ? 1 : 0;
 	}
 	
 	// 27 - verifica se o grafo é simétrico
@@ -218,23 +213,22 @@ public class TGrafo {
 		return 1;
 	}
 
-	// 28 - constroi grafo apartir de arquivo
+	// 28 - constrói grafo a partir de arquivo
 	public Integer lerGTGrafo(String file){
 		try {
             Scanner scanner = new Scanner(new File(file));
-            this.n = scanner.nextInt(); // Numero de vértices
-            this.m = scanner.nextInt(); // Numero de arestas
-			int arestasLidas = 0;
+            this.n = scanner.nextInt();                // número de vértices
+			int arestasLidas = scanner.nextInt();      // número de arestas
 
             while (scanner.hasNextInt()) {
-				arestasLidas++;
                 int origem = scanner.nextInt();
                 int destino = scanner.nextInt();
 				this.insereA(origem, destino);
             }
 
             scanner.close();
-			// Verificar erro: numero de arestas n e quantidade de linhas no arquivo diferente
+
+			// verifica erro: número de arestas n e quantidade de linhas no arquivo diferente
 			if(arestasLidas != m) return 0;
             return 1;
 
