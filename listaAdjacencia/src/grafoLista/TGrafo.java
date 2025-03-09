@@ -1,3 +1,7 @@
+Enzo Guarnieri - 10410074
+Erika Borges Piaui - 10403716
+Júlia Campolim de Oste - 10408802
+
 package grafoLista;
 
 import java.io.File;
@@ -219,6 +223,12 @@ public class TGrafo {
             Scanner scanner = new Scanner(new File(file));
             this.n = scanner.nextInt();                // número de vértices
 			int arestasLidas = scanner.nextInt();      // número de arestas
+
+			this.adj = new TNo[this.n];
+        	for (int i = 0; i < this.n; i++) {
+            	this.adj[i] = null;
+        	}
+        	this.m = 0;
 
             while (scanner.hasNextInt()) {
                 int origem = scanner.nextInt();

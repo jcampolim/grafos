@@ -1,3 +1,7 @@
+Enzo Guarnieri - 10410074
+Erika Borges Piaui - 10403716
+Júlia Campolim de Oste - 10408802
+
 package grafoLista;
 
 public class MainLista {
@@ -18,15 +22,9 @@ public class MainLista {
 		g1.insereA(7, 6);
 		g1.insereA(7, 8);
 		g1.insereA(8, 5);
-		g1.insereA(9, 7);
-		g1.insereA(9, 8);
-
-		System.out.println("> Grafo G1 = (V1,A1) inserido, onde V1 = {0,1,2,3,4,5,6,7,8,9} e A1 = {(0,3),(1,2),(3,6),(3,4),(4,1),(4,5),(4,7),(5,2),(5,8),(6,9),(7,6),(7,8),(8,5),(9,7),(9,8)}.");
-
-		g1.show();
-
-		TGrafo g2 = new TGrafo(10);
-
+		g1.insereA(9, 7);Enzo Guarnieri - 10410074
+		Erika Borges Piaui - 10403716
+		Júlia Campolim de Oste - 10408802
         g2.insereA(0, 3);
         g2.insereA(1, 2);
         g2.insereA(3, 6);
