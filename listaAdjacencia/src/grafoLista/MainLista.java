@@ -94,7 +94,7 @@ public class MainLista {
 		System.out.println("\n  > 27) Método que retorna 1 se o grafo G1 for simétrico.");
 		System.out.println("    - Grafo G1 é simétrico? " + g1.verificaSimetria());
 
-		System.out.println("\n  > 28) Método que lê um arquivo e constrói um grafo a partir dele.");
+		/* System.out.println("\n  > 28) Método que lê um arquivo e constrói um grafo a partir dele.");
 		System.out.println("    O arquivo lido contém o seguinte conteúdo: \n6\n8\n0 1\n0 5\n1 0\n1 5\n2 4\n3 1\n4 3\n3 5");
 
 		TGrafo g3 = new TGrafo(0);              // inicialmente declaramos o grafo com um número de arestas qualquer,
@@ -103,10 +103,14 @@ public class MainLista {
 		if(g3.lerGTGrafo("grafo.txt") == 1) {
 			System.out.println("    E gerou o seguinte grafo G3: ");
 			g3.show();
-		}
+		} */
 
-		//TODO: Teste 29
 		System.out.println("\n  > 29) Método que permite remover um vértice do grafo (não dirigido).");
+
+		g2.removeVerticeND(9);
+
+		System.out.println("    - Vértice 9 removido do grafo G2: \n");
+		g2.show();
 	    
 		System.out.println("\n  > 30) Método que permite remover um vértice do grafo (dirigido).");
 
