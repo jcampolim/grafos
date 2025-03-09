@@ -8,6 +8,7 @@ public class MainLista {
 
 	public static void main(String[] args) {
 	    TGrafo g1 = new TGrafo(10);
+		TGrafo g2 = new TGrafo(15);
 
 		g1.insereA(0, 3);
 		g1.insereA(1, 2);
@@ -22,9 +23,7 @@ public class MainLista {
 		g1.insereA(7, 6);
 		g1.insereA(7, 8);
 		g1.insereA(8, 5);
-		g1.insereA(9, 7);Enzo Guarnieri - 10410074
-		Erika Borges Piaui - 10403716
-		Júlia Campolim de Oste - 10408802
+		g1.insereA(9, 7);
         g2.insereA(0, 3);
         g2.insereA(1, 2);
         g2.insereA(3, 6);
