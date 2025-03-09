@@ -111,6 +111,9 @@ public class MainLista {
 
 		System.out.println("    - Vértice 7 removido do grafo G1: \n");
 		g1.show();
+
+		System.out.println("\n  > 31) Método que verifica se o grafo é completo.");
+		System.out.println("    - Grafo G1 é completo? " + g1.verificaCompleto());
 		
 	}
 

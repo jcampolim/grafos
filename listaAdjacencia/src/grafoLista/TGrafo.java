@@ -264,6 +264,23 @@ public class TGrafo {
 		adj[v] = null;
 	}
 
+	// 31 - verifica se o grafo é completo
+	public boolean verificaCompleto() {
+		for (int i = 0; i < n; i++) {
+			int grau = 0;
+			TNo no = adj[i];
+
+			while (no != null) {
+				grau++;
+				no = no.prox;
+			}
+
+			if (grau != n - 1) return false; 
+		}
+
+		return true; 
+	}
+
 	// apresenta o grafo contendo número de vértices, arestas e a lista de adjacência obtida
 	public void show() {
 	    System.out.println("n: " + n);
