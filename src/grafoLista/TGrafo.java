@@ -307,6 +307,6 @@ public class TGrafo {
 	        }
 	    }
 
-	    System.out.print("\n\nfim da impressao do grafo.\n");
+	    System.out.print("\n\nFim da impressão do grafo.\n");
 	}
 }
