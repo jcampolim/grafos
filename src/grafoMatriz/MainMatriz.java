@@ -5,7 +5,7 @@
 package grafoMatriz;
 
 public class MainMatriz {
-	public static void main(String[] args) {
+	public static void exerciciosMatriz() {
 		TGrafo g1 = new TGrafo(10);
 
 		g1.insereA(0, 3, 1);

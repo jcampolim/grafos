@@ -6,7 +6,7 @@ package grafoLista;
 
 public class MainLista {
 
-	public static void main(String[] args) {
+	public static void exerciciosLista() {
 	    TGrafo g1 = new TGrafo(10);
 		TGrafo g2 = new TGrafo(15);
 

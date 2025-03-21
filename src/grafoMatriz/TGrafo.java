@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class TGrafo {
 
@@ -311,6 +312,49 @@ public class TGrafo {
 		}
 
 		return interseccao;
+	}
+
+	public void percursoEmProfundidade(int vInicio) {
+		int qtdVerticesMarcados = 0, n, m;
+		int[] verticesMarcados = new int[this.n];
+
+		Stack<Integer> pilha = new Stack<>();
+		List<Integer> visitado = new ArrayList<>();
+
+		qtdVerticesMarcados = marcarVertice(verticesMarcados, qtdVerticesMarcados, vInicio);
+		pilha.add(vInicio);
+		visitado.add(vInicio);
+
+		while(!pilha.empty()) {
+			n = pilha.pop();
+			m = proxAdjacente(verticesMarcados, n);
+
+			while(m != -1) {
+				visitado.add(m);
+				pilha.add(n);
+				qtdVerticesMarcados = marcarVertice(verticesMarcados, qtdVerticesMarcados, m);
+				n = m;
+				m = proxAdjacente(verticesMarcados, n);
+			}
+		}
+
+		for(int i : visitado) {
+			System.out.println(i);
+		}
+	}
+
+	private int marcarVertice(int[] verticesMarcados, int qtdVerticesMarcados, int v) {
+		verticesMarcados[v] = 1;
+		return qtdVerticesMarcados + 1;
+	}
+
+	private int proxAdjacente(int[] verticesMarcados, int n) {
+		for(int i = 0; i < this.n; i++) {
+			if(adj[n][i] != INF && verticesMarcados[i] == 0) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	// apresenta o grafo contendo número de vértices, arestas e a matriz de adjacência obtida
