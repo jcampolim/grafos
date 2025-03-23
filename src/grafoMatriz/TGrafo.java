@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class TGrafo {
 
@@ -339,6 +341,35 @@ public class TGrafo {
 		}
 
 		for(int i : visitado) {
+			System.out.println(i);
+		}
+	}
+
+	public void percursoEmLargura(int vInicio) {
+		int qtdVerticesMarcados = 0;
+		int[] verticesMarcados = new int[this.n]; 
+
+		Queue<Integer> fila = new LinkedList<>();
+		List<Integer> visitado = new ArrayList<>();  
+
+		qtdVerticesMarcados = marcarVertice(verticesMarcados, qtdVerticesMarcados, vInicio);
+		fila.add(vInicio);
+		visitado.add(vInicio);
+
+		while (!fila.isEmpty()) {
+			int n = fila.poll();
+
+			int m;
+			while ((m = proxAdjacente(verticesMarcados, n)) != -1) {
+				if (!visitado.contains(m)) {
+					visitado.add(m);  
+					fila.add(m);
+					qtdVerticesMarcados = marcarVertice(verticesMarcados, qtdVerticesMarcados, m);
+				}
+			}
+		}
+
+		for (int i : visitado) {
 			System.out.println(i);
 		}
 	}
