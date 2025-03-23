@@ -4,10 +4,6 @@
 
 package grafoMatriz;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 public class TGrafoND {
     
     private	int n;          // quantidade de vértices
@@ -136,49 +132,6 @@ public class TGrafoND {
         }
 
         return false;
-    }
-
-    public void percursoEmProfundidade(int vInicio) {
-        int qtdVerticesMarcados = 0, n, m;
-        int[] verticesMarcados = new int[this.n];
-
-        Stack<Integer> pilha = new Stack<>();
-        List<Integer> visitado = new ArrayList<>();
-
-        qtdVerticesMarcados = marcarVertice(verticesMarcados, qtdVerticesMarcados, vInicio);
-        pilha.add(vInicio);
-        visitado.add(vInicio);
-
-        while(!pilha.empty()) {
-            n = pilha.pop();
-            m = proxAdjacente(verticesMarcados, n);
-
-            while(m != -1) {
-                visitado.add(m);
-                pilha.add(n);
-                qtdVerticesMarcados = marcarVertice(verticesMarcados, qtdVerticesMarcados, m);
-                n = m;
-                m = proxAdjacente(verticesMarcados, n);
-            }
-        }
-
-        for(int i : visitado) {
-            System.out.println(i);
-        }
-    }
-
-    private int marcarVertice(int[] verticesMarcados, int qtdVerticesMarcados, int v) {
-        verticesMarcados[v] = 1;
-        return qtdVerticesMarcados + 1;
-    }
-
-    private int proxAdjacente(int[] verticesMarcados, int n) {
-        for(int i = 0; i < this.n; i++) {
-            if(adj[n][i] == 1 && verticesMarcados[i] == 0) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     public void show() {

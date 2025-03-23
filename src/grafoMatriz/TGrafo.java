@@ -316,7 +316,8 @@ public class TGrafo {
 		return interseccao;
 	}
 
-	public void percursoEmProfundidade(int vInicio) {
+	// retorna o percurso em profundidade do grafo iniciando pelo vértice vInicio
+	public List<Integer> percursoEmProfundidade(int vInicio) {
 		int qtdVerticesMarcados = 0, n, m;
 		int[] verticesMarcados = new int[this.n];
 
@@ -340,12 +341,11 @@ public class TGrafo {
 			}
 		}
 
-		for(int i : visitado) {
-			System.out.println(i);
-		}
+		return visitado;
 	}
 
-	public void percursoEmLargura(int vInicio) {
+	// retorna o percurso em largura do grafo iniciando pelo vértice vInicio
+	public List<Integer> percursoEmLargura(int vInicio) {
 		int qtdVerticesMarcados = 0;
 		int[] verticesMarcados = new int[this.n]; 
 
@@ -369,16 +369,16 @@ public class TGrafo {
 			}
 		}
 
-		for (int i : visitado) {
-			System.out.println(i);
-		}
+		return visitado;
 	}
 
+	// marca o vértice como visitado e retorna a quantidade de vértices marcados
 	private int marcarVertice(int[] verticesMarcados, int qtdVerticesMarcados, int v) {
 		verticesMarcados[v] = 1;
 		return qtdVerticesMarcados + 1;
 	}
 
+	// procura o próximo vértice adjacente a n que não esteja marcado
 	private int proxAdjacente(int[] verticesMarcados, int n) {
 		for(int i = 0; i < this.n; i++) {
 			if(adj[n][i] != INF && verticesMarcados[i] == 0) {
