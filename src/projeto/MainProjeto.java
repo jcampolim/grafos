@@ -27,6 +27,13 @@ public class MainProjeto {
             System.out.print("\n> Selecione uma opção: ");
             op = scan.next();
 
+            while(!op.equals("a") && !op.equals("b") && !op.equals("c") && !op.equals("d") && !op.equals("e")
+                    && !op.equals("f") && !op.equals("g") && !op.equals("h") && !op.equals("i") && !op.equals("j")) {
+
+                System.out.print("\n> Opção inválida. Tente novamente: ");
+                op = scan.next();
+            }
+
             System.out.println();
 
             if(!existeGrafo && !op.equals("a") && !op.equals("j")) {
@@ -42,13 +49,12 @@ public class MainProjeto {
                     }
                     break;
                 case "b":
-                    // TODO: gravar dados no arquivo no mesmo formato da entrada
+                    grafo.escreverArquivo();
                     break;
                 case "c":
                     // TODO: inserir vertices
                     break;
                 case "d":
-                    // TODO: validar se os vértices existem
                     System.out.print("> Insira o primeiro vértice: ");
                     v = scan.next();
 
@@ -58,24 +64,40 @@ public class MainProjeto {
                     System.out.print("> Insira o peso da aresta: ");
                     float valor = scan.nextFloat();
 
-                    grafo.insereAresta(v, w, valor);
+                    if(grafo.verificaVertice(v) || grafo.verificaVertice(w)) {
+                        grafo.insereAresta(v, w, valor);
+                        System.out.println("> Aresta removida com sucesso");
+                    } else {
+                        System.out.println("> Vértice " + (grafo.verificaVertice(v) ? v : w) + " inválido");
+                    }
+
                     break;
                 case "e":
-                    // TODO: validar se o vértice existe
                     System.out.print("> Insira o vértice: ");
                     v = scan.next();
 
-                    grafo.removeVertice(v);
+                    if(grafo.verificaVertice(v)) {
+                        grafo.removeVertice(v);
+                        System.out.println("> Vértice removido com sucesso");
+                    } else {
+                        System.out.println("> Vértice " + v + " inválido");
+                    }
+
                     break;
                 case "f":
-                    // TODO: validar se os vértices existem
                     System.out.print("> Insira o primeiro vértice: ");
                     v = scan.next();
 
                     System.out.print("> Insira o segundo vértice: ");
                     w = scan.next();
 
-                    grafo.removeAresta(v, w);
+                    if(grafo.verificaVertice(v) || grafo.verificaVertice(w)) {
+                        grafo.removeAresta(v, w);
+                        System.out.println("> Aresta removida com sucesso");
+                    } else {
+                        System.out.println("> Vértice " + (grafo.verificaVertice(v) ? v : w) + " inválido");
+                    }
+
                     break;
                 case "g":
                     // TODO: mostrar conteúdo do arquivo de forma visual

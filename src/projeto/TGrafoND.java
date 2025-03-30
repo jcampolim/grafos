@@ -2,6 +2,8 @@ package projeto;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -38,7 +40,7 @@ public class TGrafoND {
         if(adj[v][w] == INF) {         // verifica se não temos aresta
             adj[v][w] = valor;
             adj[w][v] = valor;
-            m += 2;
+            this.m += 2;
         }
     }
 
@@ -50,20 +52,23 @@ public class TGrafoND {
         if(adj[v][w] != INF) {        // verifica se temos a aresta
             adj[v][w] = INF;
             adj[w][v] = INF;
-            m--;
+            this.m--;
+            this.m--;
         }
     }
 
     // remove vértice do grafo não direcionado
     public void removeVertice(String vertice) {
         int v = rotulos.indexOf(vertice);
+        rotulos.remove(v);
 
         // remove as arestas do vértice v
         for (int i = 0; i < n; i++) {
-            if (adj[v][i] == 1) {
-                adj[v][i] = 0;
-                adj[i][v] = 0;
-                m--;
+            if (adj[v][i] != INF) {
+                adj[v][i] = INF;
+                adj[i][v] = INF;
+                this.m--;
+                this.m--;
             }
         }
 
@@ -162,6 +167,38 @@ public class TGrafoND {
             System.out.println("> Arquivo em formato inválido");
             return 0;
         }
+    }
+
+    public void escreverArquivo() {
+        try {
+            FileWriter fileWriter = new FileWriter("grafo.txt");
+
+            fileWriter.write("2" + "\n"); // tipo do grafo
+            fileWriter.write(this.n + "\n");  // quantidade de vértices
+
+            for(int i = 0; i < n; i++) {
+                fileWriter.write(rotulos.get(i) + "\n");
+            }
+
+            fileWriter.write(this.m + "\n");  // quantidade de arestas
+
+            for(int i = 0; i < n; i++) {
+                for(int j = 0; j < i; j++) {
+                    if(adj[i][j] != INF) {
+                        fileWriter.write(rotulos.get(i) + " " + rotulos.get(j) + " " + adj[i][j] + "\n");
+                    }
+                }
+            }
+
+            fileWriter.close();
+            System.out.println("> Dados gravados com sucesso");
+        } catch (IOException e) {
+            System.out.println("> Não foi possível gravar dados no arquivo");
+        }
+    }
+
+    public boolean verificaVertice(String rotulo) {
+        return this.rotulos.contains(rotulo);
     }
 
     public void show() {
