@@ -1,5 +1,12 @@
 package projeto;
 
+import com.mxgraph.layout.mxCircleLayout;
+import com.mxgraph.util.mxCellRenderer;
+import com.mxgraph.view.mxGraph;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -157,14 +164,14 @@ public class TGrafoND {
             // verifica erro: número de arestas n e quantidade de linhas no arquivo diferente
             if(arestasLidas == m) return 1;
 
-            System.out.println("> Arquivo em formato inválido");
+            System.out.println("> Arquivo em formato inválido.");
             return 0;
 
         } catch(FileNotFoundException e) {
             System.out.println("> Arquivo não encontrado: " + file);
             return 0;
         } catch(Exception e) {
-            System.out.println("> Arquivo em formato inválido");
+            System.out.println("> Arquivo em formato inválido.");
             return 0;
         }
     }
@@ -191,14 +198,52 @@ public class TGrafoND {
             }
 
             fileWriter.close();
-            System.out.println("> Dados gravados com sucesso");
+            System.out.println("> Dados gravados com sucesso!");
         } catch (IOException e) {
-            System.out.println("> Não foi possível gravar dados no arquivo");
+            System.out.println("> Não foi possível gravar dados no arquivo.");
         }
     }
 
     public boolean verificaVertice(String rotulo) {
         return this.rotulos.contains(rotulo);
+    }
+
+    public void createGraph() throws IOException {
+        mxGraph graph = new mxGraph();
+        Object parent = graph.getDefaultParent();
+
+        // iniciando a edição do grafo
+        graph.getModel().beginUpdate();
+
+        try {
+            // adicionando os vértices no mxGraph
+            Object[] vertices = new Object[this.n];
+            for (int i = 0; i < this.n; i++) {
+                vertices[i] = graph.insertVertex(parent, null, rotulos.get(i), 0, 0, 80, 30, "shape=ellipse;fillColor=#FFFFFF;strokeColor=#000000;rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;");
+            }
+
+            // adicionando as arestas no mxGraph com base na matriz de adjacência
+            for (int i = 0; i < this.n; i++) {
+                for (int j = i + 1; j < this.n; j++) {
+                    if (adj[i][j] != INF) {
+                        graph.insertEdge(parent, null, adj[i][j], vertices[i], vertices[j], "edgeStyle=orthogonalEdge;rounded=0;orthogonalLoop=1;exitDx=0;exitDy=0;endArrow=none;strokeColor=#000000;fontColor=#000000;");
+                    }
+                }
+            }
+
+            mxCircleLayout layout = new mxCircleLayout(graph);
+            layout.execute(parent);
+        } finally {
+            // finaliza a edição do grafo
+            graph.getModel().endUpdate();
+        }
+
+        BufferedImage image = mxCellRenderer.createBufferedImage(graph, null, 2, Color.WHITE, true, null);
+
+        File file = new File("grafo.png");
+        ImageIO.write(image, "PNG", file);
+
+        System.out.println("> Imagem do grafo gerada com sucesso!");
     }
 
     public void show() {

@@ -1,9 +1,10 @@
 package projeto;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MainProjeto {
-    public static void menu() {
+    public static void menu() throws IOException {
         Scanner scan = new Scanner(System.in);
         String op, v, w;
         boolean existeGrafo = false;
@@ -66,9 +67,9 @@ public class MainProjeto {
 
                     if(grafo.verificaVertice(v) || grafo.verificaVertice(w)) {
                         grafo.insereAresta(v, w, valor);
-                        System.out.println("> Aresta removida com sucesso");
+                        System.out.println("> Aresta removida com sucesso!");
                     } else {
-                        System.out.println("> Vértice " + (grafo.verificaVertice(v) ? v : w) + " inválido");
+                        System.out.println("> Vértice " + (grafo.verificaVertice(v) ? v : w) + " inválido.");
                     }
 
                     break;
@@ -78,7 +79,7 @@ public class MainProjeto {
 
                     if(grafo.verificaVertice(v)) {
                         grafo.removeVertice(v);
-                        System.out.println("> Vértice removido com sucesso");
+                        System.out.println("> Vértice removido com sucesso!");
                     } else {
                         System.out.println("> Vértice " + v + " inválido");
                     }
@@ -93,20 +94,21 @@ public class MainProjeto {
 
                     if(grafo.verificaVertice(v) || grafo.verificaVertice(w)) {
                         grafo.removeAresta(v, w);
-                        System.out.println("> Aresta removida com sucesso");
+                        System.out.println("> Aresta removida com sucesso!");
                     } else {
-                        System.out.println("> Vértice " + (grafo.verificaVertice(v) ? v : w) + " inválido");
+                        System.out.println("> Vértice " + (grafo.verificaVertice(v) ? v : w) + " inválido.");
                     }
 
                     break;
                 case "g":
-                    // TODO: mostrar conteúdo do arquivo de forma visual
+                    grafo.createGraph();
+                    System.out.println("> O grafo ficará disponível para visualização após a execução do programa.");
                     break;
                 case "h":
                     grafo.show();
                     break;
                 case "i":
-                    System.out.println("> Conexidade do grafo: " + (grafo.verificaConexidade() == 1 ? "desconexo" : "conexo"));
+                    System.out.println("> Conexidade do grafo: " + (grafo.verificaConexidade() == 1 ? "desconexo." : "conexo."));
                     break;
                 case "j":
                     System.out.println("> Encerrando o programa...");
