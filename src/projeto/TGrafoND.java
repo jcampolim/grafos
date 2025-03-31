@@ -1,6 +1,7 @@
 package projeto;
 
 import com.mxgraph.layout.mxCircleLayout;
+import com.mxgraph.layout.mxFastOrganicLayout;
 import com.mxgraph.util.mxCellRenderer;
 import com.mxgraph.view.mxGraph;
 
@@ -47,7 +48,7 @@ public class TGrafoND {
         if(adj[v][w] == INF) {         // verifica se não temos aresta
             adj[v][w] = valor;
             adj[w][v] = valor;
-            this.m += 2;
+            this.m++;
         }
     }
 
@@ -59,7 +60,6 @@ public class TGrafoND {
         if(adj[v][w] != INF) {        // verifica se temos a aresta
             adj[v][w] = INF;
             adj[w][v] = INF;
-            this.m--;
             this.m--;
         }
     }
@@ -96,7 +96,6 @@ public class TGrafoND {
             if (adj[v][i] != INF) {
                 adj[v][i] = INF;
                 adj[i][v] = INF;
-                this.m--;
                 this.m--;
             }
         }
@@ -172,7 +171,7 @@ public class TGrafoND {
                 }
             }
 
-            while(scanner.hasNextInt()) {
+            while(scanner.hasNext()) {
                 String origem = scanner.next();
                 String destino = scanner.next();
 
@@ -194,6 +193,7 @@ public class TGrafoND {
             return 0;
         } catch(Exception e) {
             System.out.println("> Arquivo em formato inválido.");
+            e.printStackTrace();
             return 0;
         }
     }
@@ -253,14 +253,15 @@ public class TGrafoND {
                 }
             }
 
-            mxCircleLayout layout = new mxCircleLayout(graph);
+            mxFastOrganicLayout layout = new mxFastOrganicLayout(graph);
+            layout.setForceConstant(200); // Ajuste para evitar sobreposição
             layout.execute(parent);
         } finally {
             // finaliza a edição do grafo
             graph.getModel().endUpdate();
         }
 
-        BufferedImage image = mxCellRenderer.createBufferedImage(graph, null, 2, Color.WHITE, true, null);
+        BufferedImage image = mxCellRenderer.createBufferedImage(graph, null, 5, Color.WHITE, true, null);
 
         File file = new File("grafo.png");
         ImageIO.write(image, "PNG", file);
