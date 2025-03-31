@@ -241,7 +241,13 @@ public class TGrafoND {
             // adicionando os vértices no mxGraph
             Object[] vertices = new Object[this.n];
             for (int i = 0; i < this.n; i++) {
-                vertices[i] = graph.insertVertex(parent, null, rotulos.get(i), 0, 0, 80, 30, "shape=ellipse;fillColor=#FFFFFF;strokeColor=#000000;rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;");
+                if(rotulos.get(i).startsWith("E")) {
+			        vertices[i] = graph.insertVertex(parent, null, rotulos.get(i), 0, 0, 80, 30, "shape=ellipse;fillColor=#FFFFFF;strokeColor=##CD82F5;rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;");
+		        } else if(rótulos.get(i).startsWith("P")) {
+			        vertices[i] = graph.insertVertex(parent, null, rotulos.get(i), 0, 0, 80, 30, "shape=ellipse;fillColor=##FAB06B;strokeColor=#000000;rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;");
+		        } else {
+		    	    vertices[i] = graph.insertVertex(parent, null, rotulos.get(i), 0, 0, 80, 30, "shape=ellipse;fillColor=##5FBF5c;strokeColor=#000000;rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;");
+		        }
             }
 
             // adicionando as arestas no mxGraph com base na matriz de adjacência
