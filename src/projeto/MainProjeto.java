@@ -53,7 +53,16 @@ public class MainProjeto {
                     grafo.escreverArquivo();
                     break;
                 case "c":
-                    // TODO: inserir vertices
+                    System.out.print("> Insira o rótulo do vértice: ");
+                    v = scan.next();
+
+                    if(!grafo.verificaVertice(v)) {
+                        grafo.insereVertice(v); 
+                        System.out.println("> Vértice inserido com sucesso!");
+                    } else {
+                        System.out.println("> Vértice " + v + " já existe no grafo");
+                    }
+ 
                     break;
                 case "d":
                     System.out.print("> Insira o primeiro vértice: ");

@@ -64,6 +64,28 @@ public class TGrafoND {
         }
     }
 
+    // insere vértice no grafo não direcionado
+    public void insereVertice(String rotulo) {
+
+        rotulos.add(rotulo);
+        n++;
+
+        float[][] atualizarAdj = new float[n][n];
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - 1; j++) {
+                atualizarAdj[i][j] = adj[i][j];
+            }
+        }
+
+        for (int i = 0; i < n; i++) {
+            atualizarAdj[i][n - 1] = INF;
+            atualizarAdj[n - 1][i] = INF;
+        }
+
+        adj = atualizarAdj;
+    }
+
     // remove vértice do grafo não direcionado
     public void removeVertice(String vertice) {
         int v = rotulos.indexOf(vertice);
