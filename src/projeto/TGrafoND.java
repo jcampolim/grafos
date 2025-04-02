@@ -177,6 +177,11 @@ public class TGrafoND {
 
                 float valor = scanner.nextFloat();
 
+                if(!verificaVertice(origem) || !verificaVertice(destino)) {
+                    System.out.println("> Vértice " + (verificaVertice(origem) ? destino : origem) + " não encontrado.");
+                    return 0;
+                }
+
                 this.insereAresta(origem, destino, valor);
             }
 
@@ -193,7 +198,6 @@ public class TGrafoND {
             return 0;
         } catch(Exception e) {
             System.out.println("> Arquivo em formato inválido.");
-            e.printStackTrace();
             return 0;
         }
     }
@@ -230,23 +234,23 @@ public class TGrafoND {
         return this.rotulos.contains(rotulo);
     }
 
-    public void createGraph() throws IOException {
-        mxGraph graph = new mxGraph();
-        Object parent = graph.getDefaultParent();
+    public void mostrarGrafo() throws IOException {
+        mxGraph grafo = new mxGraph();
+        Object parent = grafo.getDefaultParent();
 
         // iniciando a edição do grafo
-        graph.getModel().beginUpdate();
+        grafo.getModel().beginUpdate();
 
         try {
             // adicionando os vértices no mxGraph
             Object[] vertices = new Object[this.n];
             for (int i = 0; i < this.n; i++) {
                 if(rotulos.get(i).startsWith("E")) {
-			        vertices[i] = graph.insertVertex(parent, null, rotulos.get(i), 0, 0, 80, 30, "shape=ellipse;fillColor=#FFFFFF;strokeColor=##CD82F5;rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;");
-		        } else if(rótulos.get(i).startsWith("P")) {
-			        vertices[i] = graph.insertVertex(parent, null, rotulos.get(i), 0, 0, 80, 30, "shape=ellipse;fillColor=##FAB06B;strokeColor=#000000;rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;");
+			        vertices[i] = grafo.insertVertex(parent, null, rotulos.get(i), 0, 0, 80, 30, "shape=ellipse;fillColor=#CD82F5;strokeColor=#000000;rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;");
+		        } else if(rotulos.get(i).startsWith("P")) {
+			        vertices[i] = grafo.insertVertex(parent, null, rotulos.get(i), 0, 0, 80, 30, "shape=ellipse;fillColor=#FAB06B;strokeColor=#000000;rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;");
 		        } else {
-		    	    vertices[i] = graph.insertVertex(parent, null, rotulos.get(i), 0, 0, 80, 30, "shape=ellipse;fillColor=##5FBF5c;strokeColor=#000000;rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;");
+		    	    vertices[i] = grafo.insertVertex(parent, null, rotulos.get(i), 0, 0, 80, 30, "shape=ellipse;fillColor=#5FBF5C;strokeColor=#000000;rounded=1;whiteSpace=wrap;html=1;fontColor=#000000;");
 		        }
             }
 
@@ -254,25 +258,52 @@ public class TGrafoND {
             for (int i = 0; i < this.n; i++) {
                 for (int j = i + 1; j < this.n; j++) {
                     if (adj[i][j] != INF) {
-                        graph.insertEdge(parent, null, adj[i][j], vertices[i], vertices[j], "edgeStyle=orthogonalEdge;rounded=0;orthogonalLoop=1;exitDx=0;exitDy=0;endArrow=none;strokeColor=#000000;fontColor=#000000;");
+                        grafo.insertEdge(parent, null, adj[i][j], vertices[i], vertices[j], "edgeStyle=orthogonalEdge;rounded=0;orthogonalLoop=1;exitDx=0;exitDy=0;endArrow=none;strokeColor=#000000;fontColor=#000000;");
                     }
                 }
             }
 
-            mxFastOrganicLayout layout = new mxFastOrganicLayout(graph);
-            layout.setForceConstant(200); // Ajuste para evitar sobreposição
+            // opções para melhorar o layout do grafo
+            mxFastOrganicLayout layout = new mxFastOrganicLayout(grafo);
+
+            layout.setForceConstant(200);
             layout.execute(parent);
         } finally {
             // finaliza a edição do grafo
-            graph.getModel().endUpdate();
+            grafo.getModel().endUpdate();
         }
 
-        BufferedImage image = mxCellRenderer.createBufferedImage(graph, null, 5, Color.WHITE, true, null);
+        BufferedImage image = mxCellRenderer.createBufferedImage(grafo, null, 5, Color.WHITE, true, null);
 
         File file = new File("grafo.png");
         ImageIO.write(image, "PNG", file);
 
         System.out.println("> Imagem do grafo gerada com sucesso!");
+    }
+
+    public void exibirVertices() {
+        System.out.println("> Início da impressão dos vértices (n = " + n + "): ");
+
+        for(String v : this.rotulos) {
+            System.out.println(v);
+        }
+
+        System.out.println("> Fim da impressão dos vértices.");
+    }
+
+    public void exibirArestas() {
+        System.out.println("> Início da impressão das arestas (m = " + m + "): ");
+        final int n = this.n;
+
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < i; j++) {
+                if(adj[i][j] != INF) {
+                    System.out.println(this.rotulos.get(i) + " -- " + this.rotulos.get(j) + " = " + this.adj[i][j]);
+                }
+            }
+        }
+
+        System.out.println("> Fim da impressão das arestas.");
     }
 
     public void show() {
@@ -281,8 +312,8 @@ public class TGrafoND {
             System.out.println();
 
             for(int w = 0; w < n; w++) {
-                if(adj[i][w] == INF) System.out.print("Adj[" + i + "," + w + "] = INF ");
-                else System.out.print("Adj[" + i + "," + w + "] = " + adj[i][w] + " ");
+                if(adj[i][w] == INF) System.out.print("Adj[" + rotulos.get(i) + "," + rotulos.get(w) + "] = INF ");
+                else System.out.print("Adj[" + rotulos.get(i) + "," + rotulos.get(w) + "] = " + adj[i][w] + " ");
             }
         }
 
