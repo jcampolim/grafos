@@ -11,11 +11,15 @@
 O objetivo deste projeto é criar um website, com foco na adaptabilidade para dispositivos móveis, que disponibiliza um mapa com a visão aérea do campus Higienópolis da Universidade Presbiteriana Mackenzie. Este mapa deve conter os principais pontos de referência da Instituição, como os prédios, lanchonetes e quadras.
 
 Além da visão aérea, a aplicação também disponibilizará uma ferramenta de navegação para ajudar as pessoas a se locomover dentro do campus; nesta ferramenta, os usuários serão capazes de selecionar dois locais dentro da Universidade e encontrar o melhor caminho entre eles. Sendo que, o melhor caminho pode ser tanto o caminho mais curto quanto o caminho mais acessível (que evita escadas, por exemplo).
+
 Cada local do mapa terá algumas informações básicas sobre ele, como seu nome e suas principais funcionalidades (salas de aula, laboratórios, alimentação, esportes, bibliotecas, etc.). Em adição, cada local terá uma sessão especial para informar se ele possui algum ponto de coleta de material reciclável, como a coleta de eletrônicos localizada no prédio 31 da Faculdade de Computação e Informática.
+
 Dessa forma, a aplicação deverá facilitar a locomoção de pessoas pelo ambiente universitário, principalmente pessoas que ainda não possuem familiaridade com o campus, e irá promover o descarte sustentável de materiais recicláveis, que muitas vezes não são descartados corretamente.
 
 Para mapear os locais do campus, o grupo optou pelo uso de um grafo não direcionado e ponderado nas arestas, onde os vértices representam os prédios dentro da Universidade e as arestas o caminho entre eles. Para uma modelagem inicial do problema, foi utilizado a ferramenta Graph Online, onde os vértices foram posicionados de modo semelhante ao seu posicionamento na vida real.
 
+![Grafo](./assets/grafo.png)
+<sub>Figura 1: Protótipo do grafo. Link: <a href="http://graphonline.top/?graph=MbVhwpCLhYabzWjk" target="_blank">http://graphonline.top/?graph=MbVhwpCLhYabzWjk</a>.</sub>
 
 
 Este grafo foi usado como base para a coleta de distâncias entre os locais do campus.
