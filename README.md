@@ -12,3 +12,5 @@ Cada local do mapa terá algumas informações básicas sobre ele, como seu nome
 - Enzo Guarnieri - 10410074
 - Erika Borges Piaui - 10403716
 - Júlia Campolim de Oste - 10408802
+
+[1º relatório](https://docs.google.com/document/d/1xJpaX9leEcCXHLmAk8ZejYuGFkRsiff7KOQwpLmR8yk/edit?usp=sharing)
