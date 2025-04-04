@@ -25,6 +25,8 @@ public class MainProjeto {
             System.out.println("  f. Remover aresta;");
             System.out.println("  g. Mostrar conteúdo do arquivo;");
             System.out.println("  h. Mostrar grafo;");
+            System.out.println("  *h. Mostrar apenas vértices do grafo;");
+            System.out.println("  **h. Mostrar apenas arestas do grafo;");
             System.out.println("  i. Apresentar conexidade;");
             System.out.println("  j. Encerrar a aplicação.");
             System.out.println("==================================================");
@@ -33,7 +35,8 @@ public class MainProjeto {
             op = scan.next();
 
             while(!op.equals("a") && !op.equals("b") && !op.equals("c") && !op.equals("d") && !op.equals("e")
-                    && !op.equals("f") && !op.equals("g") && !op.equals("h") && !op.equals("i") && !op.equals("j")) {
+                    && !op.equals("f") && !op.equals("g") && !op.equals("h") && !op.equals("*h") && !op.equals("**h")
+                    && !op.equals("i") && !op.equals("j")) {
 
                 System.out.print("\n> Opção inválida. Tente novamente: ");
                 op = scan.next();
@@ -80,9 +83,9 @@ public class MainProjeto {
 
                     if(grafo.verificaVertice(v) || grafo.verificaVertice(w)) {
                         grafo.insereAresta(v, w, valor);
-                        System.out.println("> Aresta removida com sucesso!");
+                        System.out.println("> Aresta adicionada com sucesso!");
                     } else {
-                        System.out.println("> Vértice " + (grafo.verificaVertice(v) ? v : w) + " inválido.");
+                        System.out.println("> Vértice " + (grafo.verificaVertice(v) ? w : v) + " inválido.");
                     }
 
                     break;
@@ -109,16 +112,22 @@ public class MainProjeto {
                         grafo.removeAresta(v, w);
                         System.out.println("> Aresta removida com sucesso!");
                     } else {
-                        System.out.println("> Vértice " + (grafo.verificaVertice(v) ? v : w) + " inválido.");
+                        System.out.println("> Vértice " + (grafo.verificaVertice(v) ? w : v) + " inválido.");
                     }
 
                     break;
                 case "g":
-                    grafo.createGraph();
+                    grafo.mostrarGrafo();
                     System.out.println("> O grafo ficará disponível para visualização após a execução do programa.");
                     break;
                 case "h":
                     grafo.show();
+                    break;
+                case "*h":
+                    grafo.exibirVertices();
+                    break;
+                case "**h":
+                    grafo.exibirArestas();
                     break;
                 case "i":
                     System.out.println("> Conexidade do grafo: " + (grafo.verificaConexidade() == 1 ? "desconexo." : "conexo."));
@@ -130,5 +139,7 @@ public class MainProjeto {
 
             System.out.println();
         } while(!op.equals("j"));
+
+        scan.close();
     }
 }
