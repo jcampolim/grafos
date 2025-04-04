@@ -2,6 +2,10 @@
 // Erika Borges Piaui, 10403716
 // Júlia Campolim de Oste, 10408802
 
+// Essa classe é responsável pela construção do grafo bem como a criação de todos os métodos associados a operações do/no grafo
+// Principais métodos implementados: inserir aresta e vértice, remover aresta e vértice, verificar conexidade,
+// Verificar se existe caminho entre vértices, ler o grafo, escrever no arquivo, mostrar o grafo, exibir vértices e exibir arestas
+
 package projeto;
 
 import com.mxgraph.layout.mxCircleLayout;

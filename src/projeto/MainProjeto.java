@@ -2,6 +2,9 @@
 // Erika Borges Piaui, 10403716
 // Júlia Campolim de Oste, 10408802
 
+// Essa é a classe Main
+// Responsável por imprimir o menu de opções para o usuário e, de acordo com a entrada dele, chamar o método da TGrafoND associado
+
 package projeto;
 
 import java.io.IOException;
