@@ -4,6 +4,9 @@
 
 package grafoMatriz;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TGrafoND {
     
     private	int n;          // quantidade de vértices
@@ -132,6 +135,45 @@ public class TGrafoND {
         }
 
         return false;
+    }
+
+	// realiza a coloração utilizando coloração sequencial
+    public List<List<Integer>> coloracaoSequencial() {
+        List<List<Integer>> cores = new ArrayList<>();
+        boolean[] colorido = new boolean[n]; 
+
+        for (int i = 0; i < n; i++) {
+            if (!colorido[i]) {
+                boolean in = false;
+
+                for (int k = 0; k < cores.size(); k++) {
+                    boolean notIn = true;
+
+                    for (int v : cores.get(k)) {
+                        if (adj[i][v] == 1) {
+                            notIn = false;
+                            break;
+                        }
+                    }
+
+                    if (notIn) {
+                        cores.get(k).add(i);
+                        colorido[i] = true;
+                        in = true;
+                        break;
+                    }
+                }
+
+                if (!in) {
+                    List<Integer> novaCor = new ArrayList<>();
+                    novaCor.add(i);
+                    cores.add(novaCor);
+                    colorido[i] = true;
+                }
+            }
+        }
+
+        return cores;
     }
 
     public void show() {

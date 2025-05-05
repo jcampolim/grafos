@@ -4,8 +4,43 @@
 
 package grafoMatriz;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.ArrayList;
+
 public class MainMatriz {
+
+	public static void main(String[] args) throws IOException {
+        exerciciosMatriz();
+    }
+
 	public static void exerciciosMatriz() {
+
+		TGrafoND grafo = new TGrafoND(5);
+
+        grafo.insereA(0, 1);
+        grafo.insereA(0, 4);
+        grafo.insereA(1, 2);
+        grafo.insereA(1, 3);
+        grafo.insereA(2, 3);
+		grafo.insereA(3, 4);
+
+        System.out.println("Grafo antes da coloração:");
+        grafo.show();
+
+        List<List<Integer>> cores = grafo.coloracaoSequencial();
+
+        System.out.println("\nResultado da coloração sequencial:");
+        for (int i = 0; i < cores.size(); i++) {
+            System.out.print("Cor " + (i + 1) + ": ");
+            for (int v : cores.get(i)) {
+                System.out.print(v + " ");
+            }
+            System.out.println();
+        }
+
+		/*
+		
 		TGrafo g1 = new TGrafo(10);
 
 		g1.insereA(0, 3, 1);
@@ -129,6 +164,8 @@ public class MainMatriz {
 		System.out.println("\n  > 17) Método que retorne o grafo reduzido de um grafo direcionado no formato de uma matriz de adjacência.");
 		System.out.println("    - Grafo reduzido do grafo G1: \n");
 		g1.grafoReduzido().show();
+
+		*/
 
 	}
 }

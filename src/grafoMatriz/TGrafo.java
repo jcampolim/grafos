@@ -388,6 +388,41 @@ public class TGrafo {
 		return -1;
 	}
 
+	// realiza a coloração utilizando coloração sequencial
+	public List<List<Integer>> coloracaoSequencial() {
+		List<List<Integer>> cores = new ArrayList<>();
+		int k = 0;
+
+		for (int i = 0; i < n; i++) {
+			boolean in = false;
+
+			for (k = 0; k < cores.size(); k++) {
+				boolean notIn = true;
+
+				for (int v : cores.get(k)) {
+					if (adj[i][v] != INF || adj[v][i] != INF) {
+						notIn = false;
+						break;
+					}
+				}
+
+				if (notIn) {
+					cores.get(k).add(i);
+					in = true;
+					break;
+				}
+			}
+
+			if (!in) {
+				List<Integer> novaCor = new ArrayList<>();
+				novaCor.add(i);
+				cores.add(novaCor);
+			}
+		}
+
+		return cores;
+	}
+
 	// apresenta o grafo contendo número de vértices, arestas e a matriz de adjacência obtida
 	public void show() {
 		System.out.println("> Início da impressão do grafo (n = " + n + " e m = " + m + "): ");
