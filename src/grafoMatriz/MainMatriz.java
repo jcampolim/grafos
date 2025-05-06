@@ -57,8 +57,6 @@ public class MainMatriz {
 		grafo2.insereA(4, 8);
 		grafo2.insereA(5, 6);
 
-		// A → 0,  B → 1,  C → 2,  D → 3,  E → 4,  F → 5,  G → 6,  H → 7 e I → 8
-
         System.out.println("Grafo antes da coloração:");
         grafo2.show();
 
