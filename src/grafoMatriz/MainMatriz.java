@@ -39,6 +39,40 @@ public class MainMatriz {
             System.out.println();
         }
 
+		TGrafoND grafo2 = new TGrafoND(9);
+
+        grafo2.insereA(0, 3);
+        grafo2.insereA(0, 7);
+        grafo2.insereA(0, 1);
+        grafo2.insereA(0, 2);
+        grafo2.insereA(0, 6);
+		grafo2.insereA(1, 7);
+		grafo2.insereA(1, 3);
+        grafo2.insereA(1, 5);
+        grafo2.insereA(2, 4);
+        grafo2.insereA(2, 8);
+        grafo2.insereA(2, 5);
+		grafo2.insereA(3, 7);
+		grafo2.insereA(4, 6);
+		grafo2.insereA(4, 8);
+		grafo2.insereA(5, 6);
+
+		// A → 0,  B → 1,  C → 2,  D → 3,  E → 4,  F → 5,  G → 6,  H → 7 e I → 8
+
+        System.out.println("Grafo antes da coloração:");
+        grafo2.show();
+
+        List<List<Integer>> cores2 = grafo2.coloracaoSequencial();
+
+        System.out.println("\nResultado da coloração sequencial:");
+        for (int i = 0; i < cores2.size(); i++) {
+            System.out.print("Cor " + (i + 1) + ": ");
+            for (int v : cores2.get(i)) {
+                System.out.print(v + " ");
+            }
+            System.out.println();
+        }
+
 		/*
 		
 		TGrafo g1 = new TGrafo(10);
