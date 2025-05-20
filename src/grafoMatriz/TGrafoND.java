@@ -6,31 +6,35 @@ package grafoMatriz;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class TGrafoND {
     
-    private	int n;          // quantidade de vértices
-	private	int m;          // quantidade de arestas
-	private int[][] adj;    //matriz de adjacência
+    private	int n;            // quantidade de vértices
+	private	int m;            // quantidade de arestas
+	private float[][] adj;    //matriz de adjacência
+
+    private float INF = Float.MAX_VALUE;
 
 	public TGrafoND(int n) {
 	    this.n = n;
 	    this.m = 0;         // inicialmente não há arestas
-	    this.adj = new int [n][n];
+	    this.adj = new float [n][n];
 
 	    // inicia a matriz com zeros
 		for(int i = 0; i < n; i++) {
 			for(int j = 0; j < n; j++) {
-				this.adj[i][j] = 0;
+				this.adj[i][j] = INF;
 			}
 		}
 	}
 
 	// insere uma aresta no TGrafo tal que v é adjacente a w e w é adjacente a v
-	public void insereA(int v, int w) {
-	    if(adj[v][w] == 0) {         // verifica se não temos aresta
-	        adj[v][w] = 1;
-            adj[w][v] = 1;
+	public void insereA(int v, int w, float valor) {
+	    if(adj[v][w] == INF) {         // verifica se não temos aresta
+	        adj[v][w] = valor;
+            adj[w][v] = valor;
 	        m++;
 	    }
 	}
@@ -94,8 +98,8 @@ public class TGrafoND {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (i != j && adj[i][j] == 0) {  
-                    complemento.insereA(i, j);
+                if (i != j && adj[i][j] == INF) {
+                    complemento.insereA(i, j, 0);
                 }
             }
         }
@@ -137,10 +141,67 @@ public class TGrafoND {
         return false;
     }
 
+    public TGrafoND getArvoreCustoMinimo() {
+        // inicialização das variáveis
+        float custo = 0;
+        TGrafoND arvore = new TGrafoND(this.n);
+
+        List<Integer> verticesArvore = new ArrayList<>();                           // vetor com os vértices já
+        verticesArvore.add(0);                                                      // adicionados a árvore
+
+        List<Integer> verticesRestantes = IntStream.rangeClosed(1, this.n - 1)     // vetor com os vértices que precisam
+                .boxed()                                                           // ser adicionados à árvore
+                .collect(Collectors.toList());
+
+        prim(arvore, verticesArvore, verticesRestantes, custo);
+
+        return arvore;
+    }
+
+    public void prim(TGrafoND arvore, List<Integer> verticesArvore, List<Integer> verticesRestantes, float custo) {
+        float valor = INF;            // armazena o valor da menor aresta
+        int vint = 0, vext = 0;       // armazena o valor do vértice interno e do vértice externo
+
+        for(int k : verticesArvore) {
+            for(int i : verticesRestantes) {
+                if(adj[k][i] < valor) {
+                    valor = adj[k][i];
+                    vint = k;
+                    vext = i;
+                }
+            }
+        }
+
+        custo = custo + valor;
+        arvore.insereA(vint, vext, valor);        // adiciona a nova aresta na árvore
+
+        // insere novo vértice no vetor de vértice da árvore e remove do vetor de vértices que precisam ser adicionados
+        verticesArvore.add(vext);
+        verticesRestantes.remove(Integer.valueOf(vext));
+
+        if(verticesArvore.size() != this.n) {
+            prim(arvore, verticesArvore, verticesRestantes, custo);
+        }
+    }
+
+    public float getTotalArestas() {
+        float total = 0;
+
+        for(int i = 0; i < this.n; i++) {
+            for(int j = 0; j < i; j++) {
+                if(adj[i][j] != INF) {
+                    total += adj[i][j];
+                }
+            }
+        }
+
+        return total;
+    }
+
 	// realiza a coloração utilizando coloração sequencial
     public List<List<Integer>> coloracaoSequencial() {
         List<List<Integer>> cores = new ArrayList<>();
-        boolean[] colorido = new boolean[n]; 
+        boolean[] colorido = new boolean[n];
 
         for (int i = 0; i < n; i++) {
             if (!colorido[i]) {
@@ -183,8 +244,8 @@ public class TGrafoND {
             System.out.print("\n");
 
             for(int w = 0; w < n; w++) {
-                if(adj[i][w] == 0) System.out.print("Adj[" + i + "," + w + "] = 0 ");
-                else System.out.print("Adj[" + i + "," + w + "] = 1 ");
+                if(adj[i][w] == INF) System.out.print("Adj[" + i + "," + w + "] = INF ");
+                else System.out.print("Adj[" + i + "," + w + "] = " + adj[i][w] + " ");
             }
         }
 

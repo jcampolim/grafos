@@ -242,7 +242,7 @@ public class TGrafo {
 		for (int i = 0; i < grafo.n; i++) {
 			for (int j = i + 1; j < grafo.n; j++) {
 				if (grafo.adj[i][j] != grafo.INF || grafo.adj[j][i] != grafo.INF) {
-					grafoND.insereA(i, j);
+					grafoND.insereA(i, j, grafo.adj[i][j] == INF ? grafo.adj[j][i] : grafo.adj[i][j]);
 				}
 			}
 		}

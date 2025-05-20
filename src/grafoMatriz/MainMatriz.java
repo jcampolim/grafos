@@ -140,18 +140,18 @@ public class MainMatriz {
 
 		TGrafoND g3 = new TGrafoND(8);
 
-		g3.insereA(0, 1);
-		g3.insereA(0, 3);
-		g3.insereA(0, 4);
-		g3.insereA(1, 2);
-		g3.insereA(1, 5);
-		g3.insereA(2, 3);
-		g3.insereA(2, 6);
-		g3.insereA(3, 7);
-		g3.insereA(4, 5);
-		g3.insereA(4, 7);
-		g3.insereA(5, 6);
-		g3.insereA(6, 7);
+		g3.insereA(0, 1, 1);
+		g3.insereA(0, 3, 2);
+		g3.insereA(0, 4, 3);
+		g3.insereA(1, 2, 4);
+		g3.insereA(1, 5, 5);
+		g3.insereA(2, 3, 6);
+		g3.insereA(2, 6, 7);
+		g3.insereA(3, 7, 8);
+		g3.insereA(4, 5, 9);
+		g3.insereA(4, 7, 10);
+		g3.insereA(5, 6, 11);
+		g3.insereA(6, 7, 12);
 
 		System.out.println("    Grafo G3 = (V3,A3) inserido com as arestas: A = {{0,1},{0,3},{0,4},{1,2},{1,5},{2,3},{2,6},{3,7},{4,5},{4,7},{5,6},{6,7}}");
 		g3.show();
