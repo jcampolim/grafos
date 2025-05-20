@@ -436,4 +436,49 @@ public class TGrafo {
 	    }
 	    System.out.println("\n\n> Fim da impressão do grafo.");
 	}
+
+	// Dijkstra
+	public int[] dijkstra(int no) {
+		// Vetor de distâncias (custo mínimo para alcançar cada vértice a partir do nó "no")
+		float[] dist = new float[this.n];
+		// Vetor para marcar os vértices já visitados
+		boolean[] visitado = new boolean[this.n];
+		// Vetor de predecessores: para cada vértice, guarda o nó anterior no caminho mínimo
+		int[] pred = new int[this.n];
+	
+		// Inicializa os vetores
+		for (int i = 0; i < this.n; i++) {
+			dist[i] = INF;
+			visitado[i] = false;
+			pred[i] = -1;  
+		}
+		dist[no] = 0; 
+	
+		
+		for (int i = 0; i < this.n; i++) {
+			int u = -1;
+			float menorDist = INF;
+			for (int j = 0; j < this.n; j++) {
+				if (!visitado[j] && dist[j] < menorDist) {
+					menorDist = dist[j];
+					u = j;
+				}
+			}
+			
+			if (u == -1) {
+				break;
+			}
+			
+			visitado[u] = true;
+			for (int v = 0; v < this.n; v++) {
+				if (!visitado[v] && this.adj[u][v] != INF) {
+					if (dist[u] + this.adj[u][v] < dist[v]) {
+						dist[v] = dist[u] + this.adj[u][v];
+						pred[v] = u;
+					}
+				}
+			}
+		}
+		return pred;
+	}
 }
