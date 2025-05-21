@@ -3,11 +3,12 @@
 // Júlia Campolim de Oste, 10408802
 
 // Essa é a classe Main
-// Responsável por imprimir o menu de opções para o usuário e, de acordo com a entrada dele, chamar o método da TGrafoND associado
+// Responsável por imprimir o menu de opções para o usuário e, de acordo com a entrada dele, chamar o método da Grafo associado
 
 package projeto;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainProjeto {
@@ -16,7 +17,7 @@ public class MainProjeto {
         String op, v, w;
         boolean existeGrafo = false;
 
-        TGrafoND grafo = new TGrafoND(0);
+        Grafo grafo = new Grafo(0);
 
         do {
             System.out.println("================= MENU DE OPÇÕES =================");
@@ -31,7 +32,10 @@ public class MainProjeto {
             System.out.println("  *h. Mostrar apenas vértices do grafo;");
             System.out.println("  **h. Mostrar apenas arestas do grafo;");
             System.out.println("  i. Apresentar conexidade;");
-            System.out.println("  j. Encerrar a aplicação.");
+            System.out.println("  j. Encontrar o menor caminho;");
+            System.out.println("  k. Encontrar a árvore de custo mínimo;");
+            System.out.println("  l. Encontrar a coloração de vértices;");
+            System.out.println("  m. Encerrar a aplicação.");
             System.out.println("==================================================");
 
             System.out.print("\n> Selecione uma opção: ");
@@ -39,7 +43,7 @@ public class MainProjeto {
 
             while(!op.equals("a") && !op.equals("b") && !op.equals("c") && !op.equals("d") && !op.equals("e")
                     && !op.equals("f") && !op.equals("g") && !op.equals("h") && !op.equals("*h") && !op.equals("**h")
-                    && !op.equals("i") && !op.equals("j")) {
+                    && !op.equals("i") && !op.equals("j") && !op.equals("k") && !op.equals("l") && !op.equals("m")) {
 
                 System.out.print("\n> Opção inválida. Tente novamente: ");
                 op = scan.next();
@@ -136,12 +140,39 @@ public class MainProjeto {
                     System.out.println("> Conexidade do grafo: " + (grafo.verificaConexidade() == 1 ? "desconexo." : "conexo."));
                     break;
                 case "j":
+                    System.out.print("> Insira o primeiro vértice: ");
+                    v = scan.next();
+
+                    System.out.print("> Insira o segundo vértice: ");
+                    w = scan.next();
+
+                    List<String> caminhoMinimo = grafo.caminhoMinimo(v, w);
+                    if(caminhoMinimo.isEmpty()) {
+                        System.out.print("> Não foi possível encontrar um caminho entre os vértices " + v + " e " + w + ".");
+                    } else {
+                        System.out.print("> Caminho mínimo: " + String.join(" ", caminhoMinimo));
+                    }
+                    break;
+                case "k":
+                    if(grafo.verificaConexidade() == 1) {
+                        System.out.println("> Não é possível encontrar uma árvore de custo mínimo para um grafo não conexo.");
+                    } else {
+                        Grafo arvore = grafo.getArvoreCustoMinimo();
+                        System.out.println("> Exibindo arestas da árvore de custo mínimo: ");
+                        arvore.exibirArestas();
+                        System.out.println("> Custo total: " + arvore.getTotalArestas());
+                    }
+                    break;
+                case "l":
+                    System.out.println("> Exibindo cores: " + grafo.coloracaoSequencial().toString());
+                    break;
+                case "m":
                     System.out.println("> Encerrando o programa...");
                     break;
             }
 
             System.out.println();
-        } while(!op.equals("j"));
+        } while(!op.equals("m"));
 
         scan.close();
     }

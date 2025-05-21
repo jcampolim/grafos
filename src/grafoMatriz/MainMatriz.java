@@ -15,6 +15,7 @@ public class MainMatriz {
     }
 
 	public static void exerciciosMatriz() {
+        /*
 
 		TGrafoND grafo = new TGrafoND(5);
 
@@ -70,8 +71,6 @@ public class MainMatriz {
             }
             System.out.println();
         }
-
-		/*
 		
 		TGrafo g1 = new TGrafo(10);
 
@@ -138,7 +137,7 @@ public class MainMatriz {
 
 		System.out.println("\n  > 8) Criar uma classe para representar grafos não-dirigidos utilizando matriz de adjacência.");
 
-		TGrafoND g3 = new TGrafoND(8);
+		Grafo g3 = new Grafo(8);
 
 		g3.insereA(0, 1, 1);
 		g3.insereA(0, 3, 2);

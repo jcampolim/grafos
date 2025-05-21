@@ -8,7 +8,6 @@
 
 package projeto;
 
-import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.layout.mxFastOrganicLayout;
 import com.mxgraph.util.mxCellRenderer;
 import com.mxgraph.view.mxGraph;
@@ -21,10 +20,13 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-public class TGrafoND {
+public class Grafo {
 
     private	int n;            // quantidade de vértices
     private	int m;            // quantidade de arestas
@@ -33,7 +35,7 @@ public class TGrafoND {
 
     private final float INF = Float.MAX_VALUE;     // define o valor do infinito para grafos ponderados
 
-    public TGrafoND(int n) {
+    public Grafo(int n) {
         this.n = n;
         this.m = 0;         // inicialmente não há arestas
         this.adj = new float [n][n];
@@ -48,11 +50,23 @@ public class TGrafoND {
         }
     }
 
+    public void setRotulos(List<String> rotulos) {
+        this.rotulos = rotulos;
+    }
+
     // insere uma aresta no TGrafo tal que v é adjacente a w e w é adjacente a v
     public void insereAresta(String rotuloV, String rotuloW, float valor) {
         int v = rotulos.indexOf(rotuloV);
         int w = rotulos.indexOf(rotuloW);
 
+        if(adj[v][w] == INF) {         // verifica se não temos aresta
+            adj[v][w] = valor;
+            adj[w][v] = valor;
+            this.m++;
+        }
+    }
+
+    public void insereA(int v, int w, float valor) {
         if(adj[v][w] == INF) {         // verifica se não temos aresta
             adj[v][w] = valor;
             adj[w][v] = valor;
@@ -133,13 +147,13 @@ public class TGrafoND {
         return 0;
     }
 
-    private boolean existeCaminho(TGrafoND g, int inicio, int fim) {
+    private boolean existeCaminho(Grafo g, int inicio, int fim) {
         boolean[] visitado = new boolean[g.n];
         return buscaCaminho(g, inicio, fim, visitado);
     }
 
     // faz uma busca de profundidade no grafo para verificar se é possível chegar de um vértice a outro
-    private boolean buscaCaminho(TGrafoND grafo, int atual, int fim, boolean[] visitado) {
+    private boolean buscaCaminho(Grafo grafo, int atual, int fim, boolean[] visitado) {
         if (atual == fim) return true;
 
         visitado[atual] = true;
@@ -297,6 +311,168 @@ public class TGrafoND {
         }
 
         System.out.println("> Fim da impressão dos vértices.");
+    }
+
+    // algoritmo de Dijkstra
+    private int[] dijkstra(int no) {
+        float[] dist = new float[this.n];           // vetor de distâncias (custo mínimo para alcançar cada vértice a partir do nó "no")
+        boolean[] visitado = new boolean[this.n];   // vetor para marcar os vértices já visitados
+        int[] pred = new int[this.n];   // vetor de predecessores: para cada vértice, guarda o nó anterior no caminho mínimo
+
+        for (int i = 0; i < this.n; i++) {
+            dist[i] = INF;
+            visitado[i] = false;
+            pred[i] = -1;
+        }
+
+        dist[no] = 0;
+
+        for (int i = 0; i < this.n; i++) {
+            int u = -1;
+            float menorDist = INF;
+            for (int j = 0; j < this.n; j++) {
+                if (!visitado[j] && dist[j] < menorDist) {
+                    menorDist = dist[j];
+                    u = j;
+                }
+            }
+
+            if (u == -1) {
+                break;
+            }
+
+            visitado[u] = true;
+            for (int v = 0; v < this.n; v++) {
+                if (!visitado[v] && this.adj[u][v] != INF) {
+                    if (dist[u] + this.adj[u][v] < dist[v]) {
+                        dist[v] = dist[u] + this.adj[u][v];
+                        pred[v] = u;
+                    }
+                }
+            }
+        }
+        return pred;
+    }
+
+    public List<String> caminhoMinimo(String origem, String destino) {
+        if(!verificaVertice(origem) || !verificaVertice(destino)) return new ArrayList<>();
+
+        int origemIndex = rotulos.indexOf(origem);
+        int destinoIndex = rotulos.indexOf(destino);
+
+        int[] caminhos = dijkstra(origemIndex);
+        List<String> caminhoFinal = new ArrayList<>();
+
+        if (caminhos[destinoIndex] == -1) {
+            return caminhoFinal;
+        }
+
+        int atual = destinoIndex;
+        while (atual != -1) {
+            caminhoFinal.add(rotulos.get(atual));
+            atual = caminhos[atual];
+        }
+
+        Collections.reverse(caminhoFinal);
+
+        return caminhoFinal;
+    }
+
+    public Grafo getArvoreCustoMinimo() {
+        // inicialização das variáveis
+        float custo = 0;
+        Grafo arvore = new Grafo(this.n);
+        arvore.setRotulos(this.rotulos);
+
+        List<Integer> verticesArvore = new ArrayList<>();                           // vetor com os vértices já
+        verticesArvore.add(0);                                                      // adicionados a árvore
+
+        List<Integer> verticesRestantes = IntStream.rangeClosed(1, this.n - 1)     // vetor com os vértices que precisam
+                .boxed()                                                           // ser adicionados à árvore
+                .collect(Collectors.toList());
+
+        prim(arvore, verticesArvore, verticesRestantes, custo);
+
+        return arvore;
+    }
+
+    public void prim(Grafo arvore, List<Integer> verticesArvore, List<Integer> verticesRestantes, float custo) {
+        float valor = INF;            // armazena o valor da menor aresta
+        int vint = 0, vext = 0;       // armazena o valor do vértice interno e do vértice externo
+
+        for(int k : verticesArvore) {
+            for(int i : verticesRestantes) {
+                if(adj[k][i] < valor) {
+                    valor = adj[k][i];
+                    vint = k;
+                    vext = i;
+                }
+            }
+        }
+
+        custo = custo + valor;
+        arvore.insereA(vint, vext, valor);        // adiciona a nova aresta na árvore
+
+        // insere novo vértice no vetor de vértice da árvore e remove do vetor de vértices que precisam ser adicionados
+        verticesArvore.add(vext);
+        verticesRestantes.remove(Integer.valueOf(vext));
+
+        if(verticesArvore.size() != this.n) {
+            prim(arvore, verticesArvore, verticesRestantes, custo);
+        }
+    }
+
+    public float getTotalArestas() {
+        float total = 0;
+
+        for(int i = 0; i < this.n; i++) {
+            for(int j = 0; j < i; j++) {
+                if(adj[i][j] != INF) {
+                    total += adj[i][j];
+                }
+            }
+        }
+
+        return total;
+    }
+
+    // realiza a coloração utilizando coloração sequencial
+    public List<List<Integer>> coloracaoSequencial() {
+        List<List<Integer>> cores = new ArrayList<>();
+        boolean[] colorido = new boolean[n];
+
+        for (int i = 0; i < n; i++) {
+            if (!colorido[i]) {
+                boolean in = false;
+
+                for (int k = 0; k < cores.size(); k++) {
+                    boolean notIn = true;
+
+                    for (int v : cores.get(k)) {
+                        if (adj[i][v] != INF) {
+                            notIn = false;
+                            break;
+                        }
+                    }
+
+                    if (notIn) {
+                        cores.get(k).add(i);
+                        colorido[i] = true;
+                        in = true;
+                        break;
+                    }
+                }
+
+                if (!in) {
+                    List<Integer> novaCor = new ArrayList<>();
+                    novaCor.add(i);
+                    cores.add(novaCor);
+                    colorido[i] = true;
+                }
+            }
+        }
+
+        return cores;
     }
 
     public void exibirArestas() {
