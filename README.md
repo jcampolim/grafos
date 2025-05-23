@@ -5,7 +5,7 @@
 - Erika Borges Piaui - 10403716
 - Júlia Campolim de Oste - 10408802
 
-[1º relatório](https://docs.google.com/document/d/1xJpaX9leEcCXHLmAk8ZejYuGFkRsiff7KOQwpLmR8yk/edit?usp=sharing)
+[relatório](https://docs.google.com/document/d/1xJpaX9leEcCXHLmAk8ZejYuGFkRsiff7KOQwpLmR8yk/edit?usp=sharing)
 
 ## Definição do projeto
 O objetivo deste projeto é criar um website, com foco na adaptabilidade para dispositivos móveis, que disponibiliza um mapa com a visão aérea do campus Higienópolis da Universidade Presbiteriana Mackenzie. Este mapa deve conter os principais pontos de referência da Instituição, como os prédios, lanchonetes e quadras.

@@ -354,6 +354,7 @@ public class Grafo {
         return pred;
     }
 
+    // chama o algoritmo de Dijkstra
     public List<String> caminhoMinimo(String origem, String destino) {
         if(!verificaVertice(origem) || !verificaVertice(destino)) return new ArrayList<>();
 
@@ -367,6 +368,7 @@ public class Grafo {
             return caminhoFinal;
         }
 
+        // calcula o caminho a partir do vetor de predecessores e associa a posição da matriz ao rótulo do prédio
         int atual = destinoIndex;
         while (atual != -1) {
             caminhoFinal.add(rotulos.get(atual));
